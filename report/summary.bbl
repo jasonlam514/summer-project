@@ -1,12 +1,14 @@
 \begin{thebibliography}{10}
 
 \bibitem{coq}
-The coq proof assistant, 2006.
+The coq proof assistant.
+\newblock \url{http://coq.inria.fr/V8.1/tutorial.html}, 2006.
 
 \bibitem{maude}
 Manuel Clavel, Francisco Dur{\'a}n, Steven Eker, Patrick Lincoln, Narciso
   Mart{\'\i}-Oliet, Jos{\'e} Meseguer, and Carolyn~L Talcott.
 \newblock The maude system.
+\newblock \url{http://maude.cs.uiuc.edu}.
 
 \bibitem{clavel2007all}
 Manuel Clavel, Francisco Dur{\'a}n, Steven Eker, Patrick Lincoln, Narciso
@@ -33,15 +35,19 @@ Andy Lawrence.
 
 \bibitem{primer}
 Theodore McCombs.
-\newblock Maude 2.0 primer, August 2003.
+\newblock Maude 2.0 primer.
+\newblock \url{http://maude.cs.uiuc.edu/primer/maude-primer.pdf}, August 2003.
 
 \bibitem{rtmaude}
 Peter {\"O}lveczky.
 \newblock The real-time maude tool.
+\newblock \url{http://heim.ifi.uio.no/peterol/RealTimeMaude/}.
 
 \bibitem{rtmanual}
 Peter~Csaba {\"O}lveczky.
-\newblock Real-time maude 2.3 manual, August 2007.
+\newblock Real-time maude 2.3 manual.
+\newblock \url{http://folk.uio.no/peterol/RealTimeMaude/intro.pdf}, August
+  2007.
 
 \bibitem{olveczky2004specification}
 Peter~Csaba {\"O}lveczky and Jos{\'e} Meseguer.

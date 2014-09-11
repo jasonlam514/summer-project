@@ -2,72 +2,32 @@ This is BibTeX, Version 0.99d (TeX Live 2014)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: summary.aux
 The style file: plain.bst
-Illegal, another \bibstyle command---line 5 of file summary.aux
- : \bibstyle
- :          {plain}
-I'm skipping whatever remains of this command
-Illegal, another \bibstyle command---line 7 of file summary.aux
- : \bibstyle
- :          {plain}
-I'm skipping whatever remains of this command
-Illegal, another \bibstyle command---line 9 of file summary.aux
- : \bibstyle
- :          {plain}
-I'm skipping whatever remains of this command
-Illegal, another \bibstyle command---line 11 of file summary.aux
- : \bibstyle
- :          {plain}
-I'm skipping whatever remains of this command
-Illegal, another \bibstyle command---line 13 of file summary.aux
- : \bibstyle
- :          {plain}
-I'm skipping whatever remains of this command
-Illegal, another \bibstyle command---line 15 of file summary.aux
- : \bibstyle
- :          {plain}
-I'm skipping whatever remains of this command
-Illegal, another \bibstyle command---line 17 of file summary.aux
- : \bibstyle
- :          {plain}
-I'm skipping whatever remains of this command
-Illegal, another \bibstyle command---line 22 of file summary.aux
- : \bibstyle
- :          {plain}
-I'm skipping whatever remains of this command
-Illegal, another \bibstyle command---line 30 of file summary.aux
- : \bibstyle
- :          {plain}
-I'm skipping whatever remains of this command
-Illegal, another \bibstyle command---line 31 of file summary.aux
- : \bibstyle
- :          {plain}
-I'm skipping whatever remains of this command
 Database file #1: summer.bib
 Warning--entry type for "rtmanual" isn't style-file defined
 --line 12 of file summer.bib
 Warning--entry type for "mres" isn't style-file defined
---line 21 of file summer.bib
+--line 22 of file summer.bib
 Warning--entry type for "coq" isn't style-file defined
---line 30 of file summer.bib
+--line 31 of file summer.bib
 Warning--entry type for "primer" isn't style-file defined
---line 37 of file summer.bib
+--line 39 of file summer.bib
 Warning--entry type for "rtmaude" isn't style-file defined
---line 54 of file summer.bib
+--line 57 of file summer.bib
 Warning--entry type for "maude" isn't style-file defined
---line 61 of file summer.bib
+--line 65 of file summer.bib
 Warning--to sort, need author or key in coq
 You've used 10 entries,
             2118 wiz_defined-function locations,
-            540 strings with 5322 characters,
-and the built_in function-call counts, 3153 in all, are:
-= -- 288
+            545 strings with 5557 characters,
+and the built_in function-call counts, 3208 in all, are:
+= -- 303
 > -- 174
 < -- 2
 + -- 73
 - -- 60
 * -- 196
-:= -- 508
-add.period$ -- 24
+:= -- 523
+add.period$ -- 29
 call.type$ -- 10
 change.case$ -- 60
 chr.to.int$ -- 0
@@ -75,17 +35,17 @@ cite$ -- 11
 duplicate$ -- 109
 empty$ -- 255
 format.name$ -- 60
-if$ -- 666
+if$ -- 681
 int.to.chr$ -- 0
 int.to.str$ -- 10
 missing$ -- 3
-newline$ -- 45
+newline$ -- 50
 num.names$ -- 18
-pop$ -- 93
+pop$ -- 90
 preamble$ -- 1
 purify$ -- 50
 quote$ -- 0
-skip$ -- 103
+skip$ -- 96
 stack$ -- 0
 substring$ -- 136
 swap$ -- 28
@@ -96,5 +56,5 @@ type$ -- 40
 warning$ -- 1
 while$ -- 26
 width$ -- 12
-write$ -- 89
-(There were 10 error messages)
+write$ -- 99
+(There were 7 warnings)

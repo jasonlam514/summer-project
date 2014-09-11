@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.9.8)  11 SEP 2014 17:31
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.9.8)  11 SEP 2014 18:15
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -23,6 +23,10 @@ File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 \abovecaptionskip=\skip41
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
+)
+(/usr/local/texlive/2014/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip10
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 ) (./summary.aux)
 \openout1 = `summary.aux'.
 
@@ -44,466 +48,467 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <8> on input line 7.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 7.
+
 [1
 
 {/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Overfull \hbox (38.24666pt too wide) in paragraph at lines 79--79
+Overfull \hbox (38.24666pt too wide) in paragraph at lines 80--80
 []\OT1/cmtt/m/n/10 class System | crossing : Bool , req : Bool , tlag : Bool , 
 tlbg : Bool ,[] 
  []
 
 
-Overfull \hbox (90.7462pt too wide) in paragraph at lines 79--79
+Overfull \hbox (90.7462pt too wide) in paragraph at lines 80--80
 []\OT1/cmtt/m/n/10 tlar : Bool , tlbr : Bool , plag : Bool , plbg : Bool , plar
  : Bool , plbr : Bool .[] 
  []
 
 
-Overfull \hbox (22.4968pt too wide) in paragraph at lines 79--79
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 80--80
 []\OT1/cmtt/m/n/10 plbg : crossing'(R,C) , plbr : crossing'(R,C) == false > } i
 n time 1 .[] 
  []
 
 [2]
-Overfull \hbox (1.49698pt too wide) in paragraph at lines 79--79
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 80--80
 []\OT1/cmtt/m/n/10 { < S : System | crossing : crossing'(R,C) , req : req'(fals
 e,R) ,[] 
  []
 
 
-Overfull \hbox (22.4968pt too wide) in paragraph at lines 79--79
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 80--80
 []\OT1/cmtt/m/n/10 plbg : crossing'(R,C) , plbr : crossing'(R,C) == false > } i
 n time 1 .[] 
  []
 
 
-Overfull \hbox (38.24666pt too wide) in paragraph at lines 88--88
+Overfull \hbox (38.24666pt too wide) in paragraph at lines 89--89
 []\OT1/cmtt/m/n/10 class System | crossing : Bool , req : Bool , tlag : Bool , 
 tlbg : Bool ,[] 
  []
 
 
-Overfull \hbox (90.7462pt too wide) in paragraph at lines 88--88
+Overfull \hbox (90.7462pt too wide) in paragraph at lines 89--89
 []\OT1/cmtt/m/n/10 tlar : Bool , tlbr : Bool , plag : Bool , plbg : Bool , plar
  : Bool , plbr : Bool .[] 
  []
 
 [3]
-Overfull \hbox (22.4968pt too wide) in paragraph at lines 112--112
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 113--113
 []\OT1/cmtt/m/n/10 plbg : crossing'(R,C) , plbr : crossing'(R,C) == false > } i
 n time 1 .[] 
  []
 
 
-Overfull \hbox (1.49698pt too wide) in paragraph at lines 112--112
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 113--113
 []\OT1/cmtt/m/n/10 { < S : System | crossing : crossing'(R,C) , req : req'(fals
 e,R) ,[] 
  []
 
 
-Overfull \hbox (22.4968pt too wide) in paragraph at lines 112--112
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 113--113
 []\OT1/cmtt/m/n/10 plbg : crossing'(R,C) , plbr : crossing'(R,C) == false > } i
 n time 1 .[] 
  []
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 114.
+(Font)              <7> on input line 115.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 114.
+(Font)              <5> on input line 115.
 
-Underfull \hbox (badness 10000) in paragraph at lines 127--127
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 114--129
+Underfull \hbox (badness 10000) in paragraph at lines 128--128
 
  []
 
 
-Overfull \hbox (10.13332pt too wide) in paragraph at lines 114--129
+Underfull \hbox (badness 10000) in paragraph at lines 115--130
+
+ []
+
+
+Overfull \hbox (10.13332pt too wide) in paragraph at lines 115--130
 [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 114--129
+Underfull \hbox (badness 10000) in paragraph at lines 115--130
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 114--129
+Underfull \hbox (badness 10000) in paragraph at lines 115--130
 
  []
 
 [4]
-Overfull \hbox (22.4968pt too wide) in paragraph at lines 142--142
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 143--143
 []  \OT1/cmtt/m/n/10 eq initstate = < system1 : System | crossing : false , req
  : false ,[] 
  []
 
 
-Overfull \hbox (111.74602pt too wide) in paragraph at lines 142--142
+Overfull \hbox (111.74602pt too wide) in paragraph at lines 143--143
 []  \OT1/cmtt/m/n/10 tlag : false , tlbg : false , tlar : true , tlbr : true , 
 plag : false , plbg : false[] 
  []
 
 
-Overfull \hbox (143.24574pt too wide) in paragraph at lines 142--142
+Overfull \hbox (143.24574pt too wide) in paragraph at lines 143--143
 []  \OT1/cmtt/m/n/10 eq danger = < system1 : System |  tlag : true , tlbg : tru
 e , plag : true , plbg : true > .[] 
  []
 
 
-Overfull \hbox (11.99689pt too wide) in paragraph at lines 150--150
+Overfull \hbox (11.99689pt too wide) in paragraph at lines 151--151
 []\OT1/cmtt/m/n/10 eq initstate = < system1 : System | crossing : false , req :
  false ,[] 
  []
 
 
-Overfull \hbox (101.24611pt too wide) in paragraph at lines 150--150
+Overfull \hbox (101.24611pt too wide) in paragraph at lines 151--151
 []\OT1/cmtt/m/n/10 tlag : false , tlbg : false , tlar : true , tlbr : true , pl
 ag : false , plbg : false[] 
  []
 
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 164.
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 165.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 164.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 165.
 
-Underfull \hbox (badness 10000) in paragraph at lines 156--165
+Underfull \hbox (badness 10000) in paragraph at lines 157--166
 
  []
 
 
-Overfull \hbox (10.13332pt too wide) in paragraph at lines 156--165
+Overfull \hbox (10.13332pt too wide) in paragraph at lines 157--166
 [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 156--165
+Underfull \hbox (badness 10000) in paragraph at lines 157--166
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 156--165
+Underfull \hbox (badness 10000) in paragraph at lines 157--166
 
  []
 
 [5]
-Overfull \hbox (1.49698pt too wide) in paragraph at lines 195--195
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 196--196
 []  \OT1/cmtt/m/n/10 eq {< system1 : System | tlar : tlar':Bool , tlag : tlag':
 Bool ,[] 
  []
 
 
-Overfull \hbox (69.74638pt too wide) in paragraph at lines 195--195
+Overfull \hbox (69.74638pt too wide) in paragraph at lines 196--196
 []\OT1/cmtt/m/n/10 tlbr : tlbr':Bool , tlbg : tlbg':Bool , crossing : C:Bool , 
 plar : plar':Bool ,[] 
  []
 
 
-Overfull \hbox (95.99615pt too wide) in paragraph at lines 195--195
+Overfull \hbox (95.99615pt too wide) in paragraph at lines 196--196
 []\OT1/cmtt/m/n/10 safecross(system1) = ((C and plag' and plbg' and tlar' and t
 lbr') or (C == false)) .[] 
  []
 
 
-Overfull \hbox (1.49698pt too wide) in paragraph at lines 195--195
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 196--196
 []  \OT1/cmtt/m/n/10 eq {< system1 : System | tlar : tlar':Bool , tlag : tlag':
 Bool ,[] 
  []
 
 
-Overfull \hbox (69.74638pt too wide) in paragraph at lines 195--195
+Overfull \hbox (69.74638pt too wide) in paragraph at lines 196--196
 []\OT1/cmtt/m/n/10 tlbr : tlbr':Bool , tlbg : tlbg':Bool , crossing : C:Bool , 
 plar : plar':Bool ,[] 
  []
 
 
-Overfull \hbox (1.49698pt too wide) in paragraph at lines 195--195
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 196--196
 []  \OT1/cmtt/m/n/10 eq {< system1 : System | tlar : tlar':Bool , tlag : tlag':
 Bool ,[] 
  []
 
 
-Overfull \hbox (69.74638pt too wide) in paragraph at lines 195--195
+Overfull \hbox (69.74638pt too wide) in paragraph at lines 196--196
 []\OT1/cmtt/m/n/10 tlbr : tlbr':Bool , tlbg : tlbg':Bool , crossing : C:Bool , 
 plar : plar':Bool ,[] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 196--197
+Underfull \hbox (badness 10000) in paragraph at lines 197--198
 
  []
 
 
-Overfull \hbox (25.13332pt too wide) in paragraph at lines 202--203
+Overfull \hbox (25.13332pt too wide) in paragraph at lines 203--204
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 227--227
+Underfull \hbox (badness 10000) in paragraph at lines 228--228
 []\OT1/cmr/m/n/10 Model check $\OMS/cmsy/m/n/10 f\OML/cmm/m/it/10 initstate\OMS
 /cmsy/m/n/10 g j[][]$\OT1/cmr/m/n/10 t[]safecross(system1)in MODEL-CHECK-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 227--227
+Underfull \hbox (badness 10000) in paragraph at lines 228--228
 []\OT1/cmr/m/n/10 Model check $\OMS/cmsy/m/n/10 f\OML/cmm/m/it/10 initstate\OMS
 /cmsy/m/n/10 g j[][]$\OT1/cmr/m/n/10 t[]safelight(system1)in MODEL-CHECK-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 207--236
+Underfull \hbox (badness 10000) in paragraph at lines 208--237
 
  []
 
 
-Overfull \hbox (10.13332pt too wide) in paragraph at lines 207--236
+Overfull \hbox (10.13332pt too wide) in paragraph at lines 208--237
 [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 207--236
+Underfull \hbox (badness 10000) in paragraph at lines 208--237
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 207--236
+Underfull \hbox (badness 10000) in paragraph at lines 208--237
 
  []
 
 
-Overfull \hbox (10.13332pt too wide) in paragraph at lines 207--236
+Overfull \hbox (10.13332pt too wide) in paragraph at lines 208--237
 [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 207--236
+Underfull \hbox (badness 10000) in paragraph at lines 208--237
 
  []
 
 [6]
-Underfull \hbox (badness 10000) in paragraph at lines 257--257
+Underfull \hbox (badness 10000) in paragraph at lines 258--258
 []\OT1/cmr/m/n/10 Model check$\OMS/cmsy/m/n/10 f\OML/cmm/m/it/10 initstate\OMS/
 cmsy/m/n/10 g j[][]$\OT1/cmr/m/n/10 t[]counter(system1)in MODEL-CHECK-
  []
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 257.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 258.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 257.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 258.
 
-Underfull \hbox (badness 10000) in paragraph at lines 238--260
+Underfull \hbox (badness 10000) in paragraph at lines 239--261
 
  []
 
 
-Overfull \hbox (10.13332pt too wide) in paragraph at lines 238--260
+Overfull \hbox (10.13332pt too wide) in paragraph at lines 239--261
 [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 238--260
+Underfull \hbox (badness 10000) in paragraph at lines 239--261
 
  []
 
 [7]
-Overfull \hbox (53.99652pt too wide) in paragraph at lines 326--326
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 327--327
 []  \OT1/cmtt/m/n/10 class Inter | ladderlogic : List{Rungs}, inputs : MapNB, o
 utputs : MapNB .[] 
  []
 
 
-Overfull \hbox (90.7462pt too wide) in paragraph at lines 326--326
+Overfull \hbox (90.7462pt too wide) in paragraph at lines 327--327
 []  \OT1/cmtt/m/n/10 crl [eval] :  {< O : Inter | ladderlogic : rlist, inputs :
  M1, outputs : M2 >} =>[] 
  []
 
 [8]
-Overfull \hbox (38.24666pt too wide) in paragraph at lines 326--326
+Overfull \hbox (38.24666pt too wide) in paragraph at lines 327--327
 []   \OT1/cmtt/m/n/10 outputs : evalll(head(rlist),M1,M2) >}  in time 1 if size
 (rlist) > 0 .[] 
  []
 
 
-Overfull \hbox (95.99615pt too wide) in paragraph at lines 326--326
+Overfull \hbox (95.99615pt too wide) in paragraph at lines 327--327
 []  \OT1/cmtt/m/n/10 crl [eval2] :  {< O : Inter | ladderlogic : rlist, inputs 
 : M1, outputs : M2 >} =>[] 
  []
 
 
-Overfull \hbox (80.24629pt too wide) in paragraph at lines 326--326
+Overfull \hbox (80.24629pt too wide) in paragraph at lines 327--327
 []  \OT1/cmtt/m/n/10 rl [compcoil] : evalll(R,M1,M2) => insert(getcoil(R) ,eval
 rung(R,M1,M2) , M2) .[] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 327--330
+Underfull \hbox (badness 10000) in paragraph at lines 328--331
 
  []
 
 [9]
-Overfull \hbox (17.24684pt too wide) in paragraph at lines 353--353
+Overfull \hbox (17.24684pt too wide) in paragraph at lines 354--354
 []\OT1/cmtt/m/n/10 eq ladder2 = lland(cont(3),lland(cont(4),(lland(cont(5),coil
 (9))))) .[] 
  []
 
 
-Overfull \hbox (32.9967pt too wide) in paragraph at lines 353--353
+Overfull \hbox (32.9967pt too wide) in paragraph at lines 354--354
 []\OT1/cmtt/m/n/10 eq map1 = 1 |-> true, 2 |-> false , 3 |-> true, 4 |-> false,
  5 |-> true,[] 
  []
 
 
-Overfull \hbox (22.4968pt too wide) in paragraph at lines 353--353
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 354--354
 []\OT1/cmtt/m/n/10 eq conf1 = < myinter : Inter | ladderlogic : ladder1 ladder2
  ladder3 ,[] 
  []
 
 
-Overfull \hbox (1.49698pt too wide) in paragraph at lines 353--353
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 354--354
 []\OT1/cmtt/m/n/10 eq ladder4 = lland(llor(cont(1),cont(2)),lland(cont(3),coil(
 9))) .[] 
  []
 
 
-Overfull \hbox (38.24666pt too wide) in paragraph at lines 353--353
+Overfull \hbox (38.24666pt too wide) in paragraph at lines 354--354
 []\OT1/cmtt/m/n/10 eq ladder5 = lland(lland(cont(4),llor(lland(cont(5),necont(6
 )),cont(7))),[] 
  []
 
 
-Overfull \hbox (32.9967pt too wide) in paragraph at lines 353--353
+Overfull \hbox (32.9967pt too wide) in paragraph at lines 354--354
 []\OT1/cmtt/m/n/10 eq map2 = 1 |-> true, 2 |-> false , 3 |-> false, 4 |-> true,
  5 |-> true,[] 
  []
 
 
-Overfull \hbox (64.49643pt too wide) in paragraph at lines 353--353
+Overfull \hbox (64.49643pt too wide) in paragraph at lines 354--354
 []\OT1/cmtt/m/n/10 eq conf2 = < myinter : Inter | ladderlogic : ladder4 ladder5
  , inputs : map2 ,[] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 364--387
+Underfull \hbox (badness 10000) in paragraph at lines 365--388
 
  []
 
 
-Overfull \hbox (10.13332pt too wide) in paragraph at lines 364--387
+Overfull \hbox (10.13332pt too wide) in paragraph at lines 365--388
 [] 
  []
 
 [10]
-Overfull \hbox (106.49606pt too wide) in paragraph at lines 497--497
+Overfull \hbox (106.49606pt too wide) in paragraph at lines 498--498
 []  \OT1/cmtt/m/n/10 ops req crossing crossing' pressed req' tlag tlbg tlar tlb
 r plag plbg plar plbr : ->[] 
  []
 
 
-Overfull \hbox (1.49698pt too wide) in paragraph at lines 497--497
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 498--498
 []                               \OT1/cmtt/m/n/10 sort Entry{PELI,Bool} to Entr
 yNB) .[] 
  []
 
 
-Overfull \hbox (53.99652pt too wide) in paragraph at lines 497--497
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 498--498
 []  \OT1/cmtt/m/n/10 class Inter | ladderlogic : List{Rungs}, inputs : MapNB, o
 utputs : MapNB .[] 
  []
 
 [11]
-Overfull \hbox (90.7462pt too wide) in paragraph at lines 497--497
+Overfull \hbox (90.7462pt too wide) in paragraph at lines 498--498
 []  \OT1/cmtt/m/n/10 crl [eval] :  {< O : Inter | ladderlogic : rlist, inputs :
  M1, outputs : M2 >} =>[] 
  []
 
 
-Overfull \hbox (32.9967pt too wide) in paragraph at lines 497--497
+Overfull \hbox (32.9967pt too wide) in paragraph at lines 498--498
 []   \OT1/cmtt/m/n/10 outputs : evalll(head(rlist),M1,M2) >} in time 1 if size(
 rlist) > 0 .[] 
  []
 
 
-Overfull \hbox (95.99615pt too wide) in paragraph at lines 497--497
+Overfull \hbox (95.99615pt too wide) in paragraph at lines 498--498
 []  \OT1/cmtt/m/n/10 crl [eval2] :  {< O : Inter | ladderlogic : rlist, inputs 
 : M1, outputs : M2 >} =>[] 
  []
 
 
-Overfull \hbox (80.24629pt too wide) in paragraph at lines 497--497
+Overfull \hbox (80.24629pt too wide) in paragraph at lines 498--498
 []  \OT1/cmtt/m/n/10 rl [compcoil] : evalll(R,M1,M2) => insert(getcoil(R) ,eval
 rung(R,M1,M2) , M2) .[] 
  []
 
 
-Overfull \hbox (27.74675pt too wide) in paragraph at lines 497--497
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 498--498
 []  \OT1/cmtt/m/n/10 rl [comprung2] : evalrung(lland(R,R1),M1,M2) => evalrung(R
 ,M1,M2) and[] 
  []
 
 
-Overfull \hbox (17.24684pt too wide) in paragraph at lines 497--497
+Overfull \hbox (17.24684pt too wide) in paragraph at lines 498--498
 []  \OT1/cmtt/m/n/10 rl [comprung3] : evalrung(llor(R,R1),M1,M2) => evalrung(R,
 M1,M2) or[] 
  []
 
 
-Overfull \hbox (27.74675pt too wide) in paragraph at lines 497--497
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 498--498
 []\OT1/cmtt/m/n/10 eq ladder1 = lland(cont(req),lland(necont(crossing),coil(cro
 ssing'))) .[] 
  []
 
 [12]
-Overfull \hbox (27.74675pt too wide) in paragraph at lines 497--497
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 498--498
 [] \OT1/cmtt/m/n/10 crossing' |-> evalrung(ladder1, (req |-> req2,crossing |-> 
 crossing2),[] 
  []
 
 
-Overfull \hbox (38.24666pt too wide) in paragraph at lines 497--497
+Overfull \hbox (38.24666pt too wide) in paragraph at lines 498--498
 [] \OT1/cmtt/m/n/10 empty) , req' |-> evalrung(ladder2, (req |-> req2,pressed |
 -> pressed2),[] 
  []
 
 
-Overfull \hbox (59.24648pt too wide) in paragraph at lines 497--497
+Overfull \hbox (59.24648pt too wide) in paragraph at lines 498--498
 []\OT1/cmtt/m/n/10 eq conf1(pressed2,req2,crossing2) = < myinter : Inter | ladd
 erlogic : ladder1[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 497--497
+Overfull \hbox (48.74657pt too wide) in paragraph at lines 498--498
 [] \OT1/cmtt/m/n/10 ladder2 ladder3 ladder4 ladder5 ladder6  ladder7 ladder8 la
 dder9 ladder10,[] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 505--520
+Underfull \hbox (badness 10000) in paragraph at lines 506--521
 
  []
 
 
-Overfull \hbox (10.13332pt too wide) in paragraph at lines 505--520
+Overfull \hbox (10.13332pt too wide) in paragraph at lines 506--521
 [] 
  []
 
 [13] (./summary.bbl) [14] (./summary.aux) ) 
 Here is how much of TeX's memory you used:
- 286 strings out of 493117
- 3325 string characters out of 6135434
+ 361 strings out of 493117
+ 4232 string characters out of 6135434
  59909 words of memory out of 5000000
- 3814 multiletter control sequences out of 15000+600000
+ 3884 multiletter control sequences out of 15000+600000
  8101 words of font info for 29 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 23i,6n,23p,853b,242s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 23i,6n,23p,737b,254s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2014/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2014/texmf-dist/f
 onts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2014/texmf-dist/fo
@@ -514,7 +519,7 @@ pe1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2014/texmf-dist/fonts/typ
 e1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1
 /public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/
 public/amsfonts/cm/cmtt10.pfb>
-Output written on summary.pdf (14 pages, 138954 bytes).
+Output written on summary.pdf (14 pages, 139462 bytes).
 PDF statistics:
  86 PDF objects out of 1000 (max. 8388607)
  60 compressed objects within 1 object stream
