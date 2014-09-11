@@ -1,0 +1,126 @@
+*** (tsearch [1] initstate =>* {< system1 : System | crossing : true , req : false >} with no time limit .)
+
+(tomod PELICAN is protecting NAT-TIME-DOMAIN .
+class System | crossing : Bool , req : Bool , tlag : Bool , tlbg : Bool , 
+tlar : Bool , tlbr : Bool , plag : Bool , plbg : Bool , plar : Bool , plbr : Bool .
+
+var S : Oid .
+vars A B C R : Bool .
+op system1 : -> Oid [ctor] .
+ops crossing' req' : Bool Bool -> Bool .
+eq crossing'(A,B) = A and not B .
+eq req'(A,B) = A and not B .
+
+rl [pressed] : { < S : System | crossing : C , req : R > } => 
+{ < S : System | crossing : crossing'(R,C) , req : req'(true,R) , 
+tlag : (req'(true,R)) and crossing'(R,C) == false ,
+tlar : crossing'(R,C) ,
+tlbg : (req'(true,R)) and crossing'(R,C) == false , 
+tlbr : crossing'(R,C) ,
+plag : crossing'(R,C) , plar : crossing'(R,C) == false ,
+plbg : crossing'(R,C) , plbr : crossing'(R,C) == false > } in time 1 .
+
+rl [notpressed] : { < S : System | crossing : C , req : R > } => 
+{ < S : System | crossing : crossing'(R,C) , req : req'(false,R) , 
+tlag : crossing'(R,C) == false ,
+tlar : crossing'(R,C) ,
+tlbg : crossing'(R,C) == false , 
+tlbr : crossing'(R,C) ,
+plag : crossing'(R,C) , plar : crossing'(R,C) == false ,
+plbg : crossing'(R,C) , plbr : crossing'(R,C) == false > } in time 1 .
+
+op press : Configuration -> Configuration .
+eq press(< S : System | crossing : C , req : R >) = 
+ < S : System | crossing : crossing'(R,C) , req : req'(true,R) , 
+tlag : (req'(true,R)) and crossing'(R,C) == false ,
+tlar : crossing'(R,C) ,
+tlbg : (req'(true,R)) and crossing'(R,C) == false , 
+tlbr : crossing'(R,C) ,
+plag : crossing'(R,C) , plar : crossing'(R,C) == false ,
+plbg : crossing'(R,C) , plbr : crossing'(R,C) == false > .
+
+op notpress : Configuration -> Configuration .
+eq notpress(< S : System | crossing : C , req : R >) = 
+ < S : System | crossing : crossing'(R,C) , req : req'(false,R) , 
+tlag : crossing'(R,C) == false ,
+tlar : crossing'(R,C) ,
+tlbg : crossing'(R,C) == false , 
+tlbr : crossing'(R,C) ,
+plag : crossing'(R,C) , plar : crossing'(R,C) == false ,
+plbg : crossing'(R,C) , plbr : crossing'(R,C) == false > .
+
+endtom)
+
+(tomod EXAMPLE is protecting PELICAN .
+  ops initstate danger : -> Configuration .
+  eq initstate = < system1 : System | crossing : false , req : false , 
+  tlag : false , tlbg : false , tlar : true , tlbr : true , plag : false , plbg : false 
+  , plar : true , plbr : true > .
+
+  eq danger = < system1 : System |  tlag : true , tlbg : true , plag : true , plbg : true > .
+endtom)
+
+ (tomod MODEL-CHECK-PELICANCROSS is 
+  including TIMED-MODEL-CHECKER .
+
+  protecting EXAMPLE .
+  vars tlar' tlbr' plar' plbr' tlag' tlbg' plag' plbg' C : Bool .
+  op system1 : -> Oid [ctor] .
+  
+  ops safecross safelight counter : Oid -> Prop [ctor] .
+
+  eq {< system1 : System | tlar : tlar':Bool , tlag : tlag':Bool ,
+tlbr : tlbr':Bool , tlbg : tlbg':Bool , crossing : C:Bool , plar : plar':Bool , plag : plag':Bool ,
+plbr : plbr':Bool , plbg : plbg':Bool >} |= safecross(system1) = ((C and plag' and plbg' and tlar' and tlbr') or (C == false)) .
+
+  eq {< system1 : System | tlar : tlar':Bool , tlag : tlag':Bool ,
+tlbr : tlbr':Bool , tlbg : tlbg':Bool , crossing : C:Bool , plar : plar':Bool , plag : plag':Bool ,
+plbr : plbr':Bool , plbg : plbg':Bool >} |= safelight(system1) = not((tlbg' or tlag') and (plag' or plbg')) .
+
+  eq {< system1 : System | tlar : tlar':Bool , tlag : tlag':Bool ,
+tlbr : tlbr':Bool , tlbg : tlbg':Bool , crossing : C:Bool , plar : plar':Bool , plag : plag':Bool ,
+plbr : plbr':Bool , plbg : plbg':Bool >} |= counter(system1) = not(tlbr' and plbr') .
+
+  endtom)
+  
+  
+  
+  
+  (mc {initstate} |=t [] safecross(system1) in time <= 100 .) 
+  (mc {initstate} |=t [] safelight(system1) in time <= 100 .) 
+  (mc {initstate} |=t [] counter(system1) in time <= 3 .) 
+  
+***(rew press(press(press(notpress(initstate)))) .)
+*** (frew [3] {initstate} .)
+*** check whether crossing and request can both be true (no solution)
+***(tsearch [1] {initstate} =>* {< system1 : System | crossing : true , req : true >} in time <= 6 .)
+
+*** know the time, don't know how to show the steps explicity (not-pressed/pressed), may need specific command? 
+*** time: 3 ,          5           ,                7                  ,              8
+*** I infer that as :
+*** pressed , not-pressed->pressed , not-pressed->not-pressed->pressed , pressed->pressed->not-pressed
+***(tsearch [4] {initstate} =>* {< system1 : System | crossing : false , req : true >} in time <= 10 .)
+
+*** same problem as above
+***(tsearch [2] {initstate} =>* {< system1 : System | crossing : true , req : false >} in time <= 6 .)
+***(tsearch [2] {initstate} =>* {< system1 : System | crossing : false , req : false >} in time <= 6 .)
+
+*** chech whether there is a  state in which all green lights are shown
+*** result: no solution to violate the property
+***(tsearch [2] {initstate} =>* {danger} in time <= 6 .)
+
+*** check safe light property , result: no solution to violate the property
+***(utsearch {initstate} =>* {< system1 : System | tlar : tlar':Bool , tlag : tlag':Bool ,
+***tlbr : tlbr':Bool , tlbg : tlbg':Bool , plar : plar':Bool , plag : plag':Bool ,
+***plbr : plbr':Bool , plbg : plbg':Bool >} such that ((tlar' and tlag') or (tlbr' and tlbg')) .)
+
+*** check safe cross property , result: no solution to violate the property
+***(utsearch {initstate} =>* {< system1 : System | tlar : tlar':Bool , tlag : tlag':Bool ,
+***tlbr : tlbr':Bool , tlbg : tlbg':Bool , crossing : C:Bool , plar : plar':Bool , plag : plag':Bool ,
+***plbr : plbr':Bool , plbg : plbg':Bool >} 
+***such that (C and (tlag' or tlbg' or plar' or plbr')) .)
+
+*** (frew [5] {initstate} .)
+
+
+

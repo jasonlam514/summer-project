@@ -1,0 +1,97 @@
+(tomod RUNG is protecting NAT-TIME-DOMAIN .
+  
+  sorts Rung Coil Contact .
+  subsorts Coil Contact < Rung .
+
+  ops lland llor : Rung Rung -> Rung .
+  op coil : signal -> Coil [ctor] .
+  ops cont necont : signal -> Contact [ctor] .
+
+
+endtom)
+
+(tomod PELICANCROSSING is protecting NAT-TIME-DOMAIN .
+ 
+  sort signal .
+  ops req crossing crossing' pressed req' tlag tlbg tlar tlbr plag plbg plar plbr : -> signal .
+
+endtom)
+
+
+(view PELI from TRIV to PELICANCROSSING is
+    sort Elt to signal .
+endv)
+
+(view Rungs from TRIV to RUNG is
+    sort Elt to Rung .
+endv)
+
+(tomod LLINTERLOCKING is protecting NAT-TIME-DOMAIN . 
+  protecting MAP{PELI,Bool}  * (sort Map{PELI,Bool} to MapNB,
+                               sort Entry{PELI,Bool} to EntryNB) .
+  protecting RUNG .
+  protecting PELICANCROSSING .
+  protecting LIST{Rungs} .
+
+  class Inter | ladderlogic : List{Rungs}, inputs : MapNB, outputs : MapNB .
+  
+  op evalll : Rung MapNB MapNB -> MapNB .
+  op evalrung : Rung MapNB MapNB -> Bool .
+  op getcoil : Rung -> signal .  
+  op myinter : -> Oid .
+
+  var rlist : List{Rungs} .
+  var O : Oid .
+  vars R R1 R2 : Rung .
+  vars M1 M2 : MapNB .
+  vars E1 E2 : EntryNB .
+  vars N1 N2 : signal .
+
+  crl [eval] :  {< O : Inter | ladderlogic : rlist, inputs : M1, outputs : M2 >} => {< O : Inter | ladderlogic : tail(rlist),  inputs : M1, outputs : evalll(head(rlist),M1,M2) >} in time 1 if size(rlist) > 0 .
+
+  crl [eval2] :  {< O : Inter | ladderlogic : rlist, inputs : M1, outputs : M2 >} => {< O : Inter | ladderlogic : rlist,  inputs : M1, outputs : M2 >} in time 1 if size(rlist) == 0 .
+  
+  
+  rl [compcoil] : evalll(R,M1,M2) => insert(getcoil(R) ,evalrung(R,M1,M2) , M2) .
+  
+  rl [comprung] : evalrung(coil(N1),M1,M2) => true .
+  rl [comprung2] : evalrung(lland(R,R1),M1,M2) => evalrung(R,M1,M2) and evalrung(R1,M1,M2) .
+  rl [comprung3] : evalrung(llor(R,R1),M1,M2) => evalrung(R,M1,M2) or evalrung(R1,M1,M2) .
+  rl [comprung4] : evalrung(cont(N1),M1,M2) => M1[N1] .
+  rl [comprung5] : evalrung(necont(N1),M1,M2) => not M1[N1] .
+
+  rl [getcoil] : getcoil(lland(R1,R2)) => getcoil(R2) .
+  rl [getcoil2] : getcoil(coil(N1)) => N1 . 
+  
+  
+endtom)
+
+(tomod example is protecting NAT-TIME-DOMAIN .
+protecting LLINTERLOCKING .
+vars A B : Bool .
+vars req2 crossing2 pressed2 : Bool .
+ops crossing' req' : Bool Bool -> Bool .
+eq crossing'(A,B) = A and not B .
+eq req'(A,B) = A and not B .
+
+ops ladder1 ladder2 ladder3 ladder4 ladder5 ladder6 ladder7 ladder8 ladder9 ladder10 : -> Rung .
+ops map1 : Bool Bool Bool -> MapNB .
+ops conf1 : Bool Bool Bool -> Configuration .
+eq ladder1 = lland(cont(req),lland(necont(crossing),coil(crossing'))) .
+eq ladder2 = lland(cont(pressed),lland(necont(req),coil(req'))) .
+eq ladder3 = lland(lland(llor(necont(pressed),cont(req')),necont(crossing')),coil(tlag)) .
+eq ladder4 = lland(lland(llor(necont(pressed),cont(req')),necont(crossing')),coil(tlbg)) .
+eq ladder5 = lland(cont(crossing'),coil(tlar)) .
+eq ladder6 = lland(cont(crossing'),coil(tlbr)) .
+eq ladder7 = lland(cont(crossing'),coil(plag)) .
+eq ladder8 = lland(cont(crossing'),coil(plbg)) .
+eq ladder9 = lland(necont(crossing'),coil(plar)) .
+eq ladder10 = lland(necont(crossing'),coil(plbr)) .
+
+eq map1(pressed2,req2,crossing2) = pressed |-> pressed2 , crossing' |-> evalrung(ladder1, (req |-> req2,crossing |-> crossing2),empty) , req' |-> evalrung(ladder2, (req |-> req2,pressed |-> pressed2),empty) , req |-> req2 , crossing |-> crossing2 .
+eq conf1(pressed2,req2,crossing2) = < myinter : Inter | ladderlogic : ladder1 ladder2 ladder3 ladder4 ladder5 ladder6  
+ladder7 ladder8 ladder9 ladder10, inputs : map1(pressed2,req2,crossing2) , outputs : empty > .
+
+endtom)
+
+(trew {conf1(true,false,true)} in time <= 10 .)
