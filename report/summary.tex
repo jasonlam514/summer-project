@@ -7,22 +7,22 @@
 \maketitle
 This is the summary of my summer project. I studied different techniques which can be used in formal specification. 
 \section{Maude}
-The first thing I looked at is the Maude system. It is a language which supports equational and rewriting logic specification and programming. It can be used to model computer systems. 
-At the beginning of the project, I have done some background reading on maude, based on the course notes of the course system specification, the maude primer and several other papers from the Internet. There are many examples which are helpful for understanding the semantics and syntax in maude. The vending machine example clearly explained the rewrite rules. It rewrites coins to items and contains rule for  the changes return. There are several other interesting examples such as dining philosopher and the game``crossing the river"(shepherd, goat, cabbage, wolf).
+The first thing I looked at is the Maude system \cite{maude}\bibliographystyle{plain}. It is a language which supports equational and rewriting logic specification and programming. It can be used to model computer systems. 
+At the beginning of the project, I have done some background reading on maude, based on the course notes of the course system specification \cite{ss}\bibliographystyle{plain}, the maude primer \cite{primer}\bibliographystyle{plain} and several other papers and books \cite{james2014verification}\bibliographystyle{plain} \cite{olveczky2004specification}\bibliographystyle{plain} \cite{clavel2007all}\bibliographystyle{plain} from the Internet. There are many examples which are helpful for understanding the semantics and syntax in maude. The vending machine example clearly explained the rewrite rules. It rewrites coins to items and contains rule for  the changes return. There are several other interesting examples such as dining philosopher and the game``crossing the river"(shepherd, goat, cabbage, wolf).
 
 \subsection{Real-Time Maude}
-The Real-Time Maude is a tool that supports the formal specification for real-time and hybrid systems. It is suitable for specifying object-oriented real-time systems. It can simulate the concurrent behaviours of the system. On top of it, Model checking can be done with a given time limit.
+The Real-Time Maude \cite{rtmaude}\bibliographystyle{plain} is a tool that supports the formal specification for real-time and hybrid systems. It is suitable for specifying object-oriented real-time systems. It can simulate the concurrent behaviours of the system. On top of it, Model checking can be done with a given time limit.
 \\I have read Andrew Lawrence's work related to Train Control System.  This verification of hybrid systems can be fitted into Real-Time Maude programs.
 The movement of the trains can be modelled by introducing timed object-oriented module. A simple example for the model checking in real-time maude is a clock model. 
 
 \section{Theorem Prover}
-I have experienced formal proofing by using COQ, a formal proof management system which uses formal language for machine-checked proofs. I have read the tutorials and done some interactive proofs myself. I was planned to use the coq SMT solver, however there are some difficulties in the installation probably due to the compatibilty of the SMT solver and coq library.
+I have experienced formal proofing by using COQ, a formal proof management system which uses formal language for machine-checked proofs. I have read the tutorials \cite{coq}\bibliographystyle{plain} and done some interactive proofs myself. I was planned to use the coq SMT solver, however there are some difficulties in the installation probably due to the compatibilty of the SMT solver and coq library.
 
 \section{Ladder Logic}
 Ladder logic is a programming language that represents a program by a graphical diagram. It can contain many rungs and each rung consists of a coil and contacts.
 I understood the relation between ladder logic and propositional logic while reading Andrew Lawrence's thesis. He suggested that we could implement ladder logic in Real-Time maude. Then we started developing the program. The program can now read a list of rungs and compile the output with given time limits.
 \section{Pelican Crossing}
-The MRes thesis of Andrew Lawrence contains a pelican crossing example which helps me to understand the basic concept of ladder logic and verification. I started to write a simple maude program modelling pelican crossing as the one in the thesis was written in SCADE.  After that I kept editing the program and improving it. I used Real-Time Maude with built-in LTL model checker module to model the pelican crossing example. The program ensured several  conditions in the pelican crossing.
+The MRes thesis of Andrew Lawrence \cite{mres}\bibliographystyle{plain} contains a pelican crossing example which helps me to understand the basic concept of ladder logic and verification. I started to write a simple maude program modelling pelican crossing as the one in the thesis was written in SCADE.  After that I kept editing the program and improving it. I used Real-Time Maude with built-in LTL model checker module to model the pelican crossing example. The program ensured several  conditions in the pelican crossing.
 
 \subsection{Specification}
 \begin{verbatim}
@@ -517,5 +517,9 @@ Result ClockedSystem :
     $\mapsto$ true, req' $\mapsto$ true, tlag $\mapsto$ true, tlar $\mapsto$ false, tlbg $\mapsto$ true, tlbr
     $\mapsto$ false)\textgreater\} in time 10
     }}
-    
-\cite{clavel2007all}\end{document}
+\newpage    
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{summer}
+
+\end{document}

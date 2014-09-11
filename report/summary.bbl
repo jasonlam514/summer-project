@@ -1,0 +1,53 @@
+\begin{thebibliography}{10}
+
+\bibitem{coq}
+The coq proof assistant, 2006.
+
+\bibitem{maude}
+Manuel Clavel, Francisco Dur{\'a}n, Steven Eker, Patrick Lincoln, Narciso
+  Mart{\'\i}-Oliet, Jos{\'e} Meseguer, and Carolyn~L Talcott.
+\newblock The maude system.
+
+\bibitem{clavel2007all}
+Manuel Clavel, Francisco Dur{\'a}n, Steven Eker, Patrick Lincoln, Narciso
+  Mart{\i}-Oliet, Jos{\'e} Meseguer, and Carolyn~L Talcott.
+\newblock All about maude-a high-performance logical framework, how to specify,
+  program and verify systems in rewriting logic, volume 4350 of lecture notes
+  in computer science.
+\newblock {\em Springer}, 4:50--88, 2007.
+
+\bibitem{ss}
+Neal Harman and Monika Seisenberger.
+\newblock System specification, Spring 2011.
+
+\bibitem{james2014verification}
+Phillip James, Andy Lawrence, Faron Moller, Markus Roggenbach, Monika
+  Seisenberger, Anton Setzer, Karim Kanso, and Simon Chadwick.
+\newblock Verification of solid state interlocking programs.
+\newblock In {\em Software Engineering and Formal Methods}, pages 253--268.
+  Springer, 2014.
+
+\bibitem{mres}
+Andy Lawrence.
+\newblock Verification of railway interlockings in scade, November 2010.
+
+\bibitem{primer}
+Theodore McCombs.
+\newblock Maude 2.0 primer, August 2003.
+
+\bibitem{rtmaude}
+Peter {\"O}lveczky.
+\newblock The real-time maude tool.
+
+\bibitem{rtmanual}
+Peter~Csaba {\"O}lveczky.
+\newblock Real-time maude 2.3 manual, August 2007.
+
+\bibitem{olveczky2004specification}
+Peter~Csaba {\"O}lveczky and Jos{\'e} Meseguer.
+\newblock Specification and analysis of real-time systems using real-time
+  maude.
+\newblock In {\em Fundamental Approaches to Software Engineering}, pages
+  354--358. Springer, 2004.
+
+\end{thebibliography}

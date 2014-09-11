@@ -1,47 +1,100 @@
 This is BibTeX, Version 0.99d (TeX Live 2014)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: summary.aux
-I found no \bibdata command---while reading file summary.aux
-I found no \bibstyle command---while reading file summary.aux
-You've used 1 entry,
-            0 wiz_defined-function locations,
-            84 strings with 501 characters,
-and the built_in function-call counts, 0 in all, are:
-= -- 0
-> -- 0
-< -- 0
-+ -- 0
-- -- 0
-* -- 0
-:= -- 0
-add.period$ -- 0
-call.type$ -- 0
-change.case$ -- 0
+The style file: plain.bst
+Illegal, another \bibstyle command---line 5 of file summary.aux
+ : \bibstyle
+ :          {plain}
+I'm skipping whatever remains of this command
+Illegal, another \bibstyle command---line 7 of file summary.aux
+ : \bibstyle
+ :          {plain}
+I'm skipping whatever remains of this command
+Illegal, another \bibstyle command---line 9 of file summary.aux
+ : \bibstyle
+ :          {plain}
+I'm skipping whatever remains of this command
+Illegal, another \bibstyle command---line 11 of file summary.aux
+ : \bibstyle
+ :          {plain}
+I'm skipping whatever remains of this command
+Illegal, another \bibstyle command---line 13 of file summary.aux
+ : \bibstyle
+ :          {plain}
+I'm skipping whatever remains of this command
+Illegal, another \bibstyle command---line 15 of file summary.aux
+ : \bibstyle
+ :          {plain}
+I'm skipping whatever remains of this command
+Illegal, another \bibstyle command---line 17 of file summary.aux
+ : \bibstyle
+ :          {plain}
+I'm skipping whatever remains of this command
+Illegal, another \bibstyle command---line 22 of file summary.aux
+ : \bibstyle
+ :          {plain}
+I'm skipping whatever remains of this command
+Illegal, another \bibstyle command---line 30 of file summary.aux
+ : \bibstyle
+ :          {plain}
+I'm skipping whatever remains of this command
+Illegal, another \bibstyle command---line 31 of file summary.aux
+ : \bibstyle
+ :          {plain}
+I'm skipping whatever remains of this command
+Database file #1: summer.bib
+Warning--entry type for "rtmanual" isn't style-file defined
+--line 12 of file summer.bib
+Warning--entry type for "mres" isn't style-file defined
+--line 21 of file summer.bib
+Warning--entry type for "coq" isn't style-file defined
+--line 30 of file summer.bib
+Warning--entry type for "primer" isn't style-file defined
+--line 37 of file summer.bib
+Warning--entry type for "rtmaude" isn't style-file defined
+--line 54 of file summer.bib
+Warning--entry type for "maude" isn't style-file defined
+--line 61 of file summer.bib
+Warning--to sort, need author or key in coq
+You've used 10 entries,
+            2118 wiz_defined-function locations,
+            540 strings with 5322 characters,
+and the built_in function-call counts, 3153 in all, are:
+= -- 288
+> -- 174
+< -- 2
++ -- 73
+- -- 60
+* -- 196
+:= -- 508
+add.period$ -- 24
+call.type$ -- 10
+change.case$ -- 60
 chr.to.int$ -- 0
-cite$ -- 0
-duplicate$ -- 0
-empty$ -- 0
-format.name$ -- 0
-if$ -- 0
+cite$ -- 11
+duplicate$ -- 109
+empty$ -- 255
+format.name$ -- 60
+if$ -- 666
 int.to.chr$ -- 0
-int.to.str$ -- 0
-missing$ -- 0
-newline$ -- 0
-num.names$ -- 0
-pop$ -- 0
-preamble$ -- 0
-purify$ -- 0
+int.to.str$ -- 10
+missing$ -- 3
+newline$ -- 45
+num.names$ -- 18
+pop$ -- 93
+preamble$ -- 1
+purify$ -- 50
 quote$ -- 0
-skip$ -- 0
+skip$ -- 103
 stack$ -- 0
-substring$ -- 0
-swap$ -- 0
-text.length$ -- 0
+substring$ -- 136
+swap$ -- 28
+text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 0
-warning$ -- 0
-while$ -- 0
-width$ -- 0
-write$ -- 0
-(There were 2 error messages)
+type$ -- 40
+warning$ -- 1
+while$ -- 26
+width$ -- 12
+write$ -- 89
+(There were 10 error messages)
