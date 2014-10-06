@@ -22,3 +22,29 @@ endtom)
 (trew {initstate} in time <= 13880 .)
 (tsearch [1000] {initstate} =>* {< c1 : Clock | hour : 0 , minute : 10 , second : 0 >} 
 in time <= 1000 .) 
+
+Maude> load fyp_clock.maude 
+rewrites: 10151 in 21ms cpu (21ms real) (464491 rewrites/second)
+Advisory: Module CLOCK redefined.
+
+Introduced timed module: CLOCK
+
+rewrites: 252679 in 391ms cpu (391ms real) (645765 rewrites/second)
+
+Timed rewrite  {initstate} in CLOCK with mode deterministic time increase in
+    time <= 13880
+
+Result ClockedSystem :
+  {< c1 : Clock | hour : 3,minute : 51,second : 20 >} in time 13880
+
+rewrites: 24887 in 46ms cpu (46ms real) (540211 rewrites/second)
+
+Timed search [1000] in CLOCK 
+	{initstate} =>* {< c1 : Clock | hour : 0,minute : 10,second : 0 >} 
+in time <= 1000 and with mode deterministic time increase :
+
+Solution 1
+CLASS_OF_c1:Clock --> Clock ; REMAINING_ATTRIBUTES_OF_c1:AttributeSet --> (
+    none).AttributeSet ; TIME_ELAPSED:Time --> 600
+
+No more solutions
