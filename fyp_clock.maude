@@ -1,0 +1,24 @@
+(tomod CLOCK is protecting NAT-TIME-DOMAIN .
+class Clock | hour : Time , minute : Time , second : Time .
+var O : Oid . 
+vars S M H : Time .
+crl [tick] : {< O : Clock | second : S >} 
+   => {< O : Clock | second : S + 1 >} in time 1 if S < 59 .
+crl [tick2] : {< O : Clock | minute : M , second : S >} 
+   => {< O : Clock | minute : M + 1 , second : 0 >} 
+     in time 1 if S == 59 /\ M < 59 .
+crl [tick3] : {< O : Clock | hour : H , minute : M , second : S >} 
+   => {< O : Clock | hour : H + 1 , minute : 0 ,  second : 0 >} 
+     in time 1 if S == 59 /\ M == 59 /\ H < 23 .
+crl [reset] : {< O : Clock | hour : H , minute : M , second : S >} 
+   => {< O : Clock | hour : 0 , minute : 0 ,  second : 0 >} 
+     in time 1 if S == 59 /\ M == 59 /\ H == 23 .
+
+op c1 : -> Oid [ctor] .
+op initstate : -> Configuration .
+eq initstate = < c1 : Clock | hour : 0 , minute : 0 , second : 0 > .
+
+endtom)
+(trew {initstate} in time <= 13880 .)
+(tsearch [1000] {initstate} =>* {< c1 : Clock | hour : 0 , minute : 10 , second : 0 >} 
+in time <= 1000 .) 
