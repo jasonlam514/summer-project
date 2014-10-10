@@ -1,0 +1,38 @@
+(omod PELICAN is 
+   class System | crossing : Bool , req : Bool , tlag : Bool ,
+   tlbg : Bool , tlar : Bool , tlbr : Bool , plag : Bool , 
+   plbg : Bool , plar : Bool , plbr : Bool .
+
+   vars S D : Oid .
+   vars A B C R : Bool .
+   vars tlar' tlbr' plar' plbr' tlag' tlbg' plag' plbg' : Bool .
+   op system1 : -> Oid [ctor] .
+   ops crossing' req' : Bool Bool -> Bool .
+   eq crossing'(A,B) = A and not B .
+   eq req'(A,B) = A and not B .
+
+   op press : Configuration -> Configuration .
+   eq press(< S : System | crossing : C , req : R >) = 
+    < S : System | crossing : crossing'(R,C) , req : req'(true,R) , 
+   tlag : (req'(true,R)) and crossing'(R,C) == false ,
+   tlar : crossing'(R,C) ,
+   tlbg : (req'(true,R)) and crossing'(R,C) == false , 
+   tlbr : crossing'(R,C) ,
+   plag : crossing'(R,C) , plar : crossing'(R,C) == false ,
+   plbg : crossing'(R,C) , plbr : crossing'(R,C) == false > .
+
+   op notpress : Configuration -> Configuration .
+   eq notpress(< S : System | crossing : C , req : R >) = 
+    < S : System | crossing : crossing'(R,C) , req : req'(false,R) , 
+   tlag : crossing'(R,C) == false ,
+   tlar : crossing'(R,C) ,
+   tlbg : crossing'(R,C) == false , 
+   tlbr : crossing'(R,C) ,
+   plag : crossing'(R,C) , plar : crossing'(R,C) == false ,
+   plbg : crossing'(R,C) , plbr : crossing'(R,C) == false > .
+
+   op initstate : -> Configuration .
+   eq initstate = < system1 : System | crossing : false , req : false , 
+   tlag : false , tlbg : false , tlar : true , tlbr : true ,
+   plag : false , plbg : false , plar : true , plbr : true > .
+endom)
