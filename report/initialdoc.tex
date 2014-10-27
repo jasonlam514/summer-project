@@ -1,4 +1,4 @@
-\documentclass{report}
+\documentclass[a4paper,11pt]{report}
 \usepackage[T1]{fontenc}
 \usepackage{url}
 \usepackage{graphicx}
@@ -6,9 +6,20 @@
 \setlength{\oddsidemargin}{1.8cm}
 \usepackage{listings}
 \usepackage{amsmath}
-
+\usepackage{pgfgantt}
+\usepackage{placeins}
+\usepackage[table]{xcolor}
+\usepackage{colortbl}
+\usepackage{array}
+\usepackage[compact]{titlesec}
+\usepackage{tocloft}
+%\renewcommand\cfttoctitlefont{\Large\bfseries} 
+\renewcommand\cftaftertoctitleskip{\setlength{10}}
+\setlength{\parindent}{0pt}
+\titleformat{\chapter}[display]
+{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
 \begin{document}
-
+\input{ladderlogic.tex}
 % ${ \ } $ \vspace{4cm}
 %
 %% Titlepage 1 
@@ -19,7 +30,7 @@
 \end{center}
 
 \begin{center}
-\vspace{1cm}
+\vspace{2cm}
 {\Large \bf Initial Document}
 \end{center}
 
@@ -28,26 +39,10 @@
 \end{center}
 
 \begin{center}
-September 2014
+October 2014
 \end{center}
 
-\vspace{3cm}
-
-\begin{center} 
-\section*{Abstract}
-\end{center}
-This is where an abstract can appear. If you don't have an abstract,
-just throw out theses lines. The abstract should not exceed 10 lines
-:-)\\
-3\\
-4\\
-5\\
-6\\
-7\\
-8\\
-9\\
-10
-\vspace{2cm}
+\vspace{8cm}
 
 \begin{center}
 \includegraphics[scale=0.1]{logo.png}
@@ -65,34 +60,40 @@ Swansea University
 \thispagestyle{empty}
 
 \newpage
+\tocloftpagestyle{empty}
 \tableofcontents{}
+\thispagestyle{empty}
 \newpage
+\setcounter{page}{1}
+\titlespacing*{\chapter}{0pt}{-30mm}{40pt}
 \chapter{Introduction}
+\label{sec:intro}
 \section{Motivation}
-The number of computerized systems has been growing rapidly. The demand of correct systems is high. System failures may result in deaths and injuries. It is important to ensure the system meets all safety properties especially in a transport control system. Railway systems are computerized, they manage junctions and signals, avoiding collisions. However, there are lots of traffic accidents in the past which were caused by system failures. On June 22, 2009, two Red Line Metrorail trains crashed in the U.S. [WASHINGTON] Nine people were killed. Failure of the signal system and operator error were the main reasons for the accident. The signal system is used to control the speed and braking of the trains, it cooperates with another system which detects the position of the trains and maintain the distance between them. The system should force the train to apply the brake if it is too close to another train. However the deaths are mainly caused by system failure. Another example is a train crash in Seoul[au new]. On May 2, 2014, a subway train crashed into the rear of a stationary train. More than 200 people were injured. The use of two different warning systems in different lines seem to be the main reason for the accident. On 24 July 2013, the Santiago de Compostela derailment occurred. A high-speed train in Spain derailed on a bend, results in 79 deaths. It was caused by the error of the train drivers. The train was travelling at 180km/h on an 80km/h curve, which is significantly over the speed limit. There was only only a speed reduction signal not far behind the bend. A safety-critical system can reduce the number of accidents occurred and save thousands of lives. Railway Control System should be automated. We cannot afford such a huge loss which is caused by a simple human error . \newline \newline
-This thesis is concerned about modelling Railway Control Systems. In this thesis we will model and verify Railway Control Systems using Real-Time Maude. We will evaluate the feasibility of model checking on Railway using Real-Time Maude. Some work has been done in the past related to the verification and modelling. ((Timed CSP Simulator has been used to model level crossing [SWANSEA].)) Verification of solid state interlocking programs has been explored by Swansea Railway Verification Group []. Andrew Lawrence has verified railway interlockings by using a software SCADE suite [ANDREW]. Karim Kanso has done a formal verification on ladder logic. The ladder logic is translated into propositional formulae based model in order to verify the safety conditions. Phillip James has also used various SAT-based model checking techniques to verify train control systems.  
- (P.14 master)\newline \newline
-We are interested in correct software therefore we will try to do it in different modelling approaches. This involves a lot of practical applications of formal methods. Formal method is a mathematically based technique that can be used for the development and verification of software and hardware system. We will mainly focus on formal verification in this dissertation. This dissertation first give an introduction about the Maude system with some background information. After that several case studies will be discussed. Then we will present with examples and explanations. 
+The number of computerized systems has been growing rapidly. There is high demand of computer systems. System failures may result in deaths and injuries. It is important to ensure the system meets all safety properties especially in a transport control system. Railway systems are computerized, they manage junctions and signals, avoiding collisions. However, there are lots of traffic accidents in the past which were caused by system failures. On June 22, 2009, two Red Line Metrorail trains crashed in the U.S. \cite{washington}. Nine people were killed. Failure of the signal system and operator error were the main reasons for the accident. The signal system is used to control the speed and braking of the trains, it cooperates with another system which detects the position of the trains and maintain the distance between them. The system should force the train to apply the brake if it is too close to another train. Ironically, the deaths  and injuries are mainly caused by system failure. Another example is a train crash in Seoul \cite{seoul}. On May 2, 2014, a subway train crashed into the rear of a stationary train. More than 200 people were injured. The use of two different warning systems in different lines seem to be the main reason for the accident. On 24 July 2013, the Santiago de Compostela derailment occurred \cite{santiago}. A high-speed train in Spain derailed on a bend, results in 79 deaths. It was caused by the error of the train drivers. The train was travelling at 180km/h on an 80km/h curve, which is significantly over the speed limit. There was only only a speed reduction signal not far behind the bend. A safety-critical system can reduce the number of accidents occurred and save thousands of lives. Railway Control System should be automated. We cannot afford such a huge loss which is caused by a simple human error. \newline \newline
+This thesis is concerned about modelling Railway Control Systems. In this thesis we will model and verify Railway Control Systems using Real-Time Maude. Then we can evaluate the feasibility of model checking on Railway using Real-Time Maude. We are interested in correct software therefore we will try to do it in different modelling approaches. This involves a lot of practical applications of formal methods. Formal method is a mathematically based technique that can be used for the development and verification of software and hardware system. We will mainly focus on formal verification in this dissertation. This dissertation first give an introduction about the Maude system with some background information. After that several case studies will be discussed. Then we will present with examples and explanations. 
 
 \section{Project Aims and Approach}
-The aim of this project is to investigate how suitable can the Maude system be used for the verification within the railway domain. In order to archive this aim, we will do several case studies. In particular, we will demonstrate a simple example for the application of modelling in pelican crossing using the Maude system. We will apply model checking for the verification of safety conditions. Real-Time Maude can be used to simulate a concurrent pelican crossing control system with a given time. Then, we will try to formalize ladder logic in Maude. As ladder logic can be translated into propositional logic, it can also be modeled in Maude. \\\\
+The aim of this project is to investigate how suitable the Maude system can be used for the verification within the railway domain. In order to archive this aim, we will do several case studies. In particular, we will demonstrate a simple example for the application of modelling in pelican crossing using the Maude system. We will apply model checking for the verification of safety conditions. Real-Time Maude can be used to simulate a concurrent pelican crossing control system with a given time. Then, we will try to formalize ladder logic in Maude. As ladder logic can be translated into propositional logic, it can also be modeled in Maude. 
+Therefore every specification including pelican crossing can be run on this ladder logic program.\\\\
 More concretely, the specific aims are as follows:
 \begin{enumerate}
 \item To study Maude and its extensions as well as its underlying theory.
 \item To study techniques and case studies used in Railway domain.
 \item To conduct case studies such as the pelican crossing in Maude. This will include formalism in Maude as well as proving safety properties.
-\item To model ladder logic in Maude.
+\item To model ladder logic in Maude. 
 \item Possibly apply it to a large case study in the railway domain.
 \end{enumerate}
-
+\section{Related Work}
+Various work has been done in the past related to the formal methods in railway domain or other aspects. Andrew Lawrence has verified railway interlockings by using a software SCADE suite \cite{mres}. Verification of solid state interlocking programs has been explored by Swansea Railway Verification Group \cite{james2014verification}. Model checking and verification in railway interlocking have been done in SCADE. Karim Kanso has done a formal verification on ladder logic \cite{kanso}. The ladder logic is translated into propositional formulae based model in order to verify the safety conditions. Phillip James has also used various SAT-based model checking techniques to verify train control systems \cite{sat}. A wireless sensor network is simulated in Real-Time Maude by Peter Csaba Ölveczky and Stian Thorvaldsen \cite{raey2}. Formal analysis on the specific OGDC algorithm has been performed. 
 
 \newpage
 \chapter{Maude}
-\section{Basic Information on Full Maude}
-In this chapter we will give background information on Maude and its basic syntax. Maude is a high-level programming language and high-performance system that can be used for implementing rewriting logic. Rewriting logic can be interpreted as a logic for concurrent computation. It can be applied to various concurrent models. The Maude system is associated with mathematical based concept, it supports equational specification. Equations and rules are the basic statements in Maude. They both obey the rewriting semantics i.e. things on the left can be replaced by those on the right. More examples of equational logic will be shown below. Various works related to the specification and verification in Maude have been done in the past [ICFEM'09]. Discrete event models such as traffic light has been simulated by Real-Time Maude.
+\label{sec:maude}
+\section{Full Maude: Basic Information}
+In this chapter we will give background information on Maude and its basic syntax. Maude is a high-level programming language and high-performance system that can be used for implementing rewriting logic. Rewriting logic can be interpreted as a logic for concurrent computation. It can be applied to various concurrent models. The Maude system is associated with mathematical based concept, it supports equational specification. Equations and rules are the basic statements in Maude. They both obey the rewriting semantics i.e. things on the left can be replaced by those on the right. More examples of equational logic will be shown below. Various works related to the specification and verification in Maude have been done in the past \cite{raey}. Discrete event models such as traffic light has been simulated in Real-Time Maude.
 \newline \newline
 Here we have several definitions regarding the Maude system.
-$Module$ is the basic unit of a Maude program which contains syntax declarations. This functional module begins with {\bf fmod} and ends with {\bf endfm}. The simplest component for specification is the data type. It is declared as $sort(s) $ in Maude. Its subtype is more specific, declared as $subsort(s) $. If we define real-number as a sort then $natural-number < real-number$ can be the subsort. Here we use a functional module STACK as an example. At the beginning, the module can be written in this way.
+$Module$ is the basic unit of a Maude program which contains syntax declarations. This functional module begins with {\bf fmod} and ends with {\bf endfm}. The simplest component for specification is the data type. It is declared as $sort(s) $ in Maude. Its subtype is more specific, declared as $subsort(s) $. If we define real-number as a sort then \textit{natural-number < real-number} can be the subsort. Here we use a functional module STACK as an example. At the beginning, the module can be written in this way.
 
 \begin{verbatim}
 fmod STACK is
@@ -100,8 +101,8 @@ fmod STACK is
    subsort NEStack < Stack .
 endfm
 \end{verbatim}
-If we run the program, nothing can be concluded as the module does not have any meaning. It is not completed yet. Therefore we need operations that can handle the sorts in order to archive what we want to compute. Each operator should have a name and argument. Equations are used to specify how the operation works in different scenario. We need to declare variables for the declaration of equation. Below is the complete version of the stack example.
-\newline 
+If we run the program, nothing will be displayed as the module does not know what to be computed. It is not completed yet. Therefore we need operations that can handle the sorts in order to produce the type of result that we are looking for. Each operator should have a name and argument(s). Equations are used to specify how the operation works in different scenarios. We need to declare variables for the declaration of equation. The following is a complete version of the stack example.
+\newpage 
 \begin{lstlisting}[numbers=left, frame=lines, xleftmargin=5.0ex]
 fmod STACK is
    sorts Stack Entity NEStack  .
@@ -118,19 +119,18 @@ fmod STACK is
    eq top(push(S,E)) = E .   
 endfm
 \end{lstlisting}
-\vspace{0.2cm}
-We can test the program by the following command :
+We can test the program by running the following command :
 \begin{verbatim}
    red top(pop(push(push(push(S,E),F),E))) . \end{verbatim}
-$red $ is the abbreviation of reduction. We try to add E to the top of the stack S, then we add F follows by E, after that we remove the top entity. We are looking for the entity at the top. The result obtained is F. Here is the response from the program.
+$red $ is the abbreviation of reduction. We try to add E to the top of the stack S, then we add F follows by the addition of E, after that we remove the top entity. We are looking for the entity at the top. The result obtained is F. Here is the response from the program.
 \newline 
 \begin{lstlisting}[frame=single,linewidth=13.4cm]
 reduce in STACK : top(pop(push(push(push(S, E), F), E))) .
 rewrites: 2 in 0ms cpu (0ms real) (2000000 rewrites/second)
 result Entity: F 
 \end{lstlisting}
-
-There are also other types of declaration. Below is a list of some possible declarations in a functional module.
+\vspace{0.1cm}
+There are other types of declaration. Below is a list of possible declarations in a functional module.
 
 \begin{itemize}
   \item \begin{alltt}sort s . \end{alltt}
@@ -146,27 +146,27 @@ There are also other types of declaration. Below is a list of some possible decl
 \newpage
 \section{Real-Time Maude}
 The Maude system has its extensions such as HI-Maude and Real-Time Maude.
-Real-Time Maude is a tool that supports the formal specification for real-time and hybrid systems based on Maude. It is suitable for specifying object-oriented real-time systems as the concurrent behaviours can be simulated. In the simulation process, we can do searching with or without a given time limit to look for a state which can be reached from the initial state. This involves term rewriting. The additional functionality provided by this extension is that we can discover whether a point is reachable from the initial state. It also supports temporal logic model checking. We are able to specify and simulate larger systems with concurrent behaviours. 
-\newline There is slightly difference between Maude and Real-Time Maude in terms of the syntax. For the concurrent object-oriented systems, we use object-oriented timed modules which is written as tomod at the beginning of the module and endtom at the end of the module. The module should be surrounded by parentheses. There are instantaneous rewrite rules and tick rules which can be used in Real-Time Maude. Instantaneous rewrite rule is assumed to be taken zero time in the process as it models instantaneous transition. Here we have the syntax of an instantaneous rewrite rule as an example.
+Real-Time Maude is a tool that supports the formal specification for real-time and hybrid systems based on Maude. It is suitable for specifying object-oriented real-time systems as the concurrent behaviours can be simulated. In the simulation process, we can do searching with or without a given time limit to look for a state, which can be reached from an initial state. This involves term rewriting. We can discover whether a state in the system is reachable from its initial state with this function. Real-Time Maude also supports temporal logic model checking. We are able to specify and simulate larger systems with concurrent behaviours. 
+\newline There is slightly difference between Maude and Real-Time Maude in terms of the syntax. For the concurrent object-oriented systems, we use object-oriented timed modules which is written as \textbf{tomod} at the beginning of the module and \textbf{endtom} at the end of the module. The module should be surrounded by parentheses. There are instantaneous rewrite rules and tick rules which can be used in Real-Time Maude. Instantaneous rewrite rule is assumed to be taken zero time in the process as it models instantaneous transition. Here we have the syntax of an instantaneous rewrite rule as an example:
 
 \begin{alltt}   rl [\textit{l}] : s => s' .\end{alltt}
-This represents a one-step transition from state s to s'. Both s and s' have the sort system. \textit{l} is the label for the rewriting logic. For the tick rewriting rule, we have the following syntax.
+This represents a one-step transition from state s to s'. Both s and s' have the sort system. \textit{l} is the label for the rewriting logic. For the tick rewriting rule, we have the following syntax:
 \begin{alltt}   rl [\textit{l}] : \{s\} => \{s'\} in time \textit{t} if \textit{cond} . \end{alltt}
 There is a sort GlobalSystem which is denoted by a constructor \{\_\} in Real-Time Maude. \{s\} means the entire system in state s. The transition above takes \textit{t} number of time-steps. 
-Real-Time Maude is also suitable for object-oriented system. For declaring a object in an object-oriented module, we first need to declare a class. We use a class C as an example.
+Real-Time Maude is also suitable for object-oriented system. For declaring a object in an object-oriented module, we first need to declare a class. We use a class $C$ as an example:
 
 \begin{alltt}
    class C | \textit{a0}: s0, \ldots, \textit{an} : sn
 \end{alltt}
-Class C contains several attributes $a\sb{0}$ to $a\sb{n}$ with respective sorts $s\sb{0}$ to $s\sb{n}$. 
-\newline Object is an instance of a class. {\bf Configuration} is the sort of an object's state.  An object has the following format:
+Class $C$ contains several attributes $a\sb{0}$ to $a\sb{n}$ with respective sorts $s\sb{0}$ to $s\sb{n}$. 
+\newline Object is an instance of a class. {\bf Configuration} is the sort that represents an object's state.  An object has the following format:
 \begin{alltt}
    < O : C | \textit{att0} : val0, \ldots, \textit{attn} : valn >
 \end{alltt}
-In order to get familiar with the Real-Time Maude system, we will show by modelling a simple clock in an object-oriented timed module.
+In order to get familiar with the Real-Time Maude system, we will also model a simple clock in an object-oriented timed module.
 \newpage
 \subsection{Example: Modelling a clock}
-\begin{lstlisting}[numbers=left, frame=lines, xleftmargin=5.0ex]
+\begin{lstlisting}[numbers=left, frame=lines]
 (tomod CLOCK is protecting NAT-TIME-DOMAIN .
    class Clock | hour : Time , minute : Time , second : Time .
    op c1 : -> Oid [ctor] .
@@ -177,30 +177,14 @@ In order to get familiar with the Real-Time Maude system, we will show by modell
 	
    crl [second] : {< O : Clock | second : S >} 
       => {< O : Clock | second : S + 1 >} in time 1 if S < 59 .
-			
-   crl [minute] : {< O : Clock | minute : M , second : S >} 
-      => {< O : Clock | minute : M + 1 , second : 0 >} 
-        in time 1 if S == 59 /\ M < 59 .
-				
-   crl [hour] : {< O : Clock | hour : H , minute : M , second : S >} 
-      => {< O : Clock | hour : H + 1 , minute : 0 ,  second : 0 >} 
-        in time 1 if S == 59 /\ M == 59 /\ H < 23 .
-				
-   crl [reset] : {< O : Clock | hour : H , minute : M , second : S >} 
-      => {< O : Clock | hour : 0 , minute : 0 ,  second : 0 >} 
-        in time 1 if S == 59 /\ M == 59 /\ H == 23 .
-endtom)
-
 \end{lstlisting}
-\vspace{0.5cm}
-Above is the whole specification of a simple clock model. This module is including another module called NAT-TIME-DOMAIN. That is one of the predefined modules for the time domain.
-We want the clock to show the time correctly and that the hours, minutes and seconds can be counted and shown at any elapsed time since the initial state. We have a constructor c1 as an object identifier, we assume c1 is a clock. The initial state of this clock has been set. It has the sort {\bf Configuration}. All attributes are set to zero. We have several conditional tick rules. Each rule is simulating one time in each step, which will be one second in this example. We can check the state of the clock system with given elapsed time. We can try the following command :
+Above is the first ten lines of the simple clock model program. The whole implementation is given in Appendix \ref{sec:aclock}. This module is including another module called NAT-TIME-DOMAIN. That is one of the predefined modules for the time domain.
+We want the clock to show the time correctly and that the hours, minutes and seconds can be counted and shown at any elapsed time since the initial state. We have a constructor $c1$ as an object identifier, we assume $c1$ is a clock. The initial state of this clock has been set. It has the sort {\bf Configuration}. All attributes are set to zero. We have several conditional tick rules. Each rule is simulating one time in each step, which will be one second in this example. We can check the state of the clock system with given elapsed time. We can try the following command :
 \begin{verbatim}
    (trew {initstate} in time <= 13880 .)
 \end{verbatim}
-This timed rewrite command performs the simulation by showing the state of the system after the given number of time units. We want to see what time will be displayed by clock c1 after 13880 time units (seconds). The result is shown on the next page.
-\newpage 
-\begin{lstlisting}[frame=single,linewidth=14.4cm]
+This timed rewrite command performs the simulation by showing the state of the system after the given number of time units. We want to see what time will be displayed by clock $c1$ after 13880 time units (seconds). The result is shown below:
+\begin{lstlisting}[frame=single,linewidth=15.4cm]
 rewrites: 252679 in 391ms cpu (391ms real) 
    (645765 rewrites/second)
 
@@ -210,29 +194,106 @@ Timed rewrite  {initstate} in CLOCK
 Result ClockedSystem :
   {< c1 : Clock | hour : 3,minute : 51,second : 20 >} in time 13880
 \end{lstlisting}
-\vspace{0.5cm}
-As shown by the result, 3 hours 51 minutes and 20 seconds has elapsed after 13880 time units.
+As shown by the result, 3 hours 51 minutes and 20 seconds has elapsed after 13880 time units as seconds.
 We can verified this by the formula $(3 \times 60 \times 60) + (51 \times 60) + 20 = 13880 $.
-With the help of a calculator, we can say that the clock is correct. However, can we conclude that the clock is always correct? In order to ensure the system is correct and safe, we should perform verification, it can be done by applying the model checking. This may be discussed later.
-
-\iffalse \section{LTL Model Checker/search command?}
-With the help of a calculator, we can say that the clock is correct. However, can we conclude that the clock is always correct? In order to ensure the system is correct and safe, we should perform verification, it can be done by applying the model checking. This may be discussed later.
-
-We have to verify safety conditions in different real-time operating systems. There
-
-LTL model checker. Model checking can be done with a given time limit. Linear Temporal Logic
-
-Model check
-
-\fi
-
+However, can we conclude that the clock is always correct? In order to ensure the system is correct and safe, we should perform verification, it can be done by applying the model checking. Model checking will be discussed in chapter \ref{chap:pc}.
 \newpage
-\chapter{Railway Control Systems}
-
+\chapter{Introduction to the Railway Domain}
+\label{sec:rcs}
+\section{History}
+The railway system was established in the 1800s. Trains were controlled by train drivers. They receive signals from Policemen who stand at stations and junctions. However this method is not reliable. The position of the trains could not be tracked therefore accidents often happened. Then fixed signal was introduced. It replaced the hand signal. However one signal was still controlled by one person. Therefore signal box was introduced, it is a point which connects signals. Message could be sent by a signalman. The introduction of signal box still caused some accidents. In order to improve the reliability, interlocking and block signal were developed. It became mandatory in the late 1800s.  
+\subsection{Interlocking}
+The interlocking is a critical part in railway. It prevents conflicting movement of the trains by locking the levers physically. A reliable interlocking provides safety-critical functions and avoids collision between trains. A control system cannot directly control the railway without the interlocking. The interlocking is act as a medium between the railway control system and the physical side of the railway. It operates in discrete cycles. The procedure can be explained in few steps.
+\begin{enumerate}
+\item There are new requests in every cycle, the control signal will be passed to the interlocking by the control system.
+\item The interlocking receives signal and executes the program, it only accepts requests that will not cause any conflict in the route configuration. Output will be passed to the railway.
+\item Actions performed on the railway will be sent back to the interlocking as signal.
+\item The interlocking updates its route configuration and informs the control system.
+\item Control system receives the response for the request. Accepted request will be committed in the next cycle. 
+\end{enumerate}
+\usetikzlibrary{shapes.geometric, arrows}
+\tikzstyle{box} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=blue!30]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+\begin{figure}[!ht]
+  \centering
+\begin{tikzpicture}[node distance=1.8cm]
+\node (cs) [box] {Control System};
+\node (inter) [box, below of=cs] {Interlocking};
+\node (rail) [box, below of=inter] {Railway};
+\path (cs.south) -- (cs.south west) coordinate[pos=0.5] (a1);
+\path (inter.north) -- (inter.north west) coordinate[pos=0.5] (b1);
+\draw [arrow] (a1) -- (b1);
+\path (cs.south) -- (cs.south east) coordinate[pos=0.5] (a2);
+\path (inter.north) -- (inter.north east) coordinate[pos=0.5] (b2);
+\draw [arrow] (b2) -- (a2);
+\path (inter.south) -- (inter.south west) coordinate[pos=0.5] (a3);
+\path (rail.north) -- (rail.north west) coordinate[pos=0.5] (b3);
+\draw [arrow] (a3) -- (b3);
+\path (inter.south) -- (inter.south east) coordinate[pos=0.5] (a4);
+\path (rail.north) -- (rail.north east) coordinate[pos=0.5] (b4);
+\draw [arrow] (b4) -- (a4);
+\end{tikzpicture}
+\caption{The Control Flow in Each Cycle}
+\end{figure}
+\FloatBarrier
+\section{Ladder Logic}
+Ladder diagrams are often applied in control logic systems. This graphical ladder like diagram is implemented by engineers for representing sets of boolean equations. It is widely used in railway interlockings. A ladder consists of one or more horizontal rungs. Each rung typically consists of a coil at the right, contact(s) may exists on the left. A ladder logic diagram looks like \textbf{Figure \ref{fig:ladder}}.
+\begin{figure}[h!]
+ \begin{center}
+   \begin{tikzpicture}[scale=0.6, transform shape]
+	   \draw (0,1) -- (0,-5);
+     \draw (12, 1) -- (12, -5);
+		 \draw (0,0)  \rungStart \contact{con1} \closedContact{con2} \coil{coil1};
+		 \draw (0,-2)  \rungStart \contact{con3} \nodeLinkInline{A} \closedContact{con4} \coil{coil2};
+		 \draw (0,-4)  \rungStart \closedContact{con5} \nodeLink{B};
+		\draw (A) -- (B);
+		\end{tikzpicture}
+ \end{center}
+\caption{\label{fig:ladder}An Example of Ladder Logic Diagram}
+\end{figure}
+\FloatBarrier
+\newpage
+The entities will be described in the following table.
+\begin{table}[h]
+\hspace*{-1cm}
+\renewcommand\arraystretch{2.4}
+\begin{tabular}{|l|l|p{7cm}|l|}
+\hline
+\textbf{Entity} & \textbf{Symbol} & \textbf{Function} & \textbf{Type} \\ \hline
+Open Contact &  \begin{tikzpicture}[scale=0.6, transform shape] \draw (0,0)  \contact{con};\end{tikzpicture} & An open contact is a boolean variable. It contains one of the inputs in a rung. Its value is un-negated. &  Input: Boolean \\ \hline 
+Closed Contact  & \begin{tikzpicture}[scale=0.6, transform shape] \draw (0,0)  \closedContact{con};\end{tikzpicture}& A closed contact is a boolean variable. It contains one of the inputs in a rung. It is read as the negation of its value. &  Input: Boolean \\ \hline
+ Coil  & \begin{tikzpicture}[scale=0.6, transform shape] \draw (0,0)  \coil{coil};\end{tikzpicture} & A coil represents the output of its rung. Each rung is computed from left to right with connectives and contacts as inputs. The coils are computed from the top to bottom. The value of the coil could be used by the rungs below. The value of the coils can be stored. &  Output: Boolean \\ \hline
+\end{tabular}
+\caption{Entities in Ladder Logic}
+\end{table}
+\FloatBarrier
+Apart from the basic entities, logical connectives are used to connect different contacts. 
+\begin{table}[h]
+\hspace*{-1cm}
+\renewcommand\arraystretch{2.2}
+\begin{tabular}{|m{3cm}|m{5cm}|m{4cm}|}
+\hline
+\textbf{Connective} & \textbf{Representation} & \textbf{Propositional logic} \\ \hline
+Conjunction & \begin{tikzpicture}[scale=0.6, transform shape]
+       \draw (0,-0.25) -- (0,-1.75);
+       \draw (0,-1)  \rungStart \contact{X} \closedContact{Y} ;
+     \end{tikzpicture} & $X \;\land\; \neg\; Y$ \\ \hline
+Disjunction &
+     \begin{tikzpicture}[scale=0.6, transform shape]
+       \draw (0,-0.5) -- (0,-3);
+       \draw (0,-1)  \rungStart \contact{X} \nodeLinkInline{A};
+       \draw (0,-2.5)  \rungStart \contact{Y} \nodeLink{B};
+       \draw (A) -- (B);
+     \end{tikzpicture} &  $X\;\lor\;Y$\\ \hline
+\end{tabular}
+\caption{Connectives}
+\end{table}
 \newpage
 \chapter{Case Study: Pelican Crossing in Maude}
-In this chapter we will have our first case study which is conducted in Maude. It is a pelican crossing example which simulates the behaviours of a pelican crossing control system. It has been modeled in SCADE by Andrew Lawrence[ANDY]. In a pelican crossing control system, there are several lights for pedestrians and traffic. Pedestrians can press the button on the control panel when they want to cross the road. We would like to model how these buttons interact with the traffic lights. There are some rules for the pelican crossing control system. We can present these rules by a set of ladder logic formulae.
-
+\label{chap:pc}
+\section{Introduction}
+In this chapter we will have our first case study which is conducted in Maude. It is a pelican crossing example which simulates the behaviours of a pelican crossing control system. It has been modeled in SCADE by Lawrence \cite{mres}. A pelican crossing control system controls two sets of lights for pedestrians and traffic respectively. Each of the lights shows either green or red signal. Two traffic lights will normally show the same signal, red signal means the traffic flow should stop and green means to proceed. The same thing applies to pedestrian lights, red signal means pedestrians should wait and green means they are safe to cross the road. Pedestrians can press the button on the control panel when they want to cross the road, a request will be made. 
+We would like to model how these buttons interact with the traffic lights. The pelican crossing control system has been formalised by James \cite{pjll}. It can can be expressed in ladder logic. As every set of ladder logic corresponds to some propositional logic, we first present these rules by a set of propositional logic:
 \begin{align*}
 \;crossing'\;&\Leftrightarrow\;(req\;\wedge\;\neg\;crossing)\\
 \;req'\;&\Leftrightarrow\;(pressed\;\wedge\;\neg\;req)\\
@@ -245,9 +306,12 @@ In this chapter we will have our first case study which is conducted in Maude. I
 \;plar\;&\Leftrightarrow\;(\neg\;crossing')\\
 \;plbr\;&\Leftrightarrow\;(\neg\;crossing')\\
 \end{align*}
-We will model the system by translating above formulae into code and run it in Full Maude. The following is an object-oriented module. We do not model it as timed system at this stage but this module will be modified and timed check will be conducted at a later stage.
+There are several variables. $req$ means required, it represents a request to cross the road as a button has been pressed in the previous iteration. $crossing$ means pedestrian is crossing the road. $pressed$ means a button is pressed in current iteration. Other variables represent light signals.
+\section{Modelling in Maude}
+We will model the system by translating above formulae into code and run it in Full Maude. The following is an object-oriented module. 
 \newpage
-\begin{lstlisting}[numbers=left, frame=lines, xleftmargin=5.0ex]
+%, xleftmargin=5.0ex
+\begin{lstlisting}[numbers=left, frame=lines]
 (omod PELICAN is 
    class System | crossing : Bool , req : Bool , tlag : Bool ,
    tlbg : Bool , tlar : Bool , tlbr : Bool , plag : Bool , 
@@ -282,70 +346,434 @@ We will model the system by translating above formulae into code and run it in F
    plbg : crossing'(R,C) , plbr : crossing'(R,C) == false > .
 
    op initstate : -> Configuration .
-   eq initstate = < system1 : System | crossing : false , req : false , 
-   tlag : false , tlbg : false , tlar : true , tlbr : true ,
-   plag : false , plbg : false , plar : true , plbr : true > .
+   eq initstate = < system1 : System | crossing : false 
+   , req : false , tlag : false , tlbg : false , tlar : true , 
+   tlbr : true , plag : false , plbg : false , plar : true , 
+   plbr : true > .
 endom)
 \end{lstlisting}
-\vspace{0.5cm}
-This is the module that contains the operations and the equations for modelling the pelican crossing.
-We started with several variables $tlar'$, $tlbr'$, $plar'$, $plbr'$, $tlag'$, $tlbg'$, $plag'$, $plbg'$, which represent different states of the  traffic lights. When $tlar'$ is set to true, that means the traffic light is showing red. Lights for pedestrians begin with p. $e.g.\;plar'\;and\;plbg'$.\newline The two operations $press$ and $notpress$ are used to simulate the action of the pedestrian $i.e.$ whether the button has been pressed by them or not.  We have a configuration called initstate, it is the initial state of the control program. it is set as:
+\vspace{0.2cm}
+This is the module that contains the operations and the equations for modelling the pelican crossing. We do not model it as timed system at this stage but this module will be modified and timed check will be conducted at a later stage.
+We started with several variables $tlar'$, $tlbr'$, $plar'$, $plbr'$, $tlag'$, $tlbg'$, $plag'$, $plbg'$, which represent different states of the  traffic lights. When $tlar'$ is set to true, that means the traffic light is showing red. Lights for pedestrians begin with pla and plb. $e.g.\;plar'\;and\;plbg'$.\newline The two operations $press$ and $notpress$ are used to simulate the action of the pedestrians ($i.e.$ whether the button has been pressed by them or not). We have a configuration called initstate, it is the initial state of the control program. it is set as:
 \begin{verbatim}
 eq initstate = < system1 : System | crossing : false , req : false , 
-tlag : false , tlbg : false , tlar : true , tlbr : true , plag : false , plbg : false 
-, plar : true , plbr : true > .
+tlag : false , tlbg : false , tlar : true , tlbr : true , 
+plag : false , plbg : false , plar : true , plbr : true > .
 \end{verbatim}
-All the attributes except the red lights are set to false.
-We can simulate a set of actions by this command as an example:
+All the attributes are set to false except the red lights which are set to true.
+\section{Running in the Specification in Maude}
+We can simulate a set of actions by running this command as an example:
 \begin{verbatim} (rew notpress(press(initstate)) .)\end{verbatim}
-This is the result obtained:
-\begin{lstlisting}[frame=single,linewidth=14.6cm]
+$rew$ is the abbreviation of rewrite which performs the operations or rewrite rules and produces the result. This is the result obtained:
+\begin{lstlisting}[frame=single,linewidth=15cm]
 rewrite in MODEL-CHECK-PELICANCROSS :
   notpress(press(initstate))
 	
 result Object :
   < system1 : System | crossing : true, plag : true, plar : false,
-    plbg : true, plbr : false, req : false, tlag : false, tlar : true,
-    tlbg : false, tlbr : true >
+    plbg : true, plbr : false, req : false, tlag : false,
+    tlar : true, tlbg : false, tlbr : true >
 \end{lstlisting}
-We are simulating that the button on the control panel is pressed once but not in the next instruction.
-We can see that some values in the object are changed. $crossing$ is set to true, that means pedestrians are allowed to cross the road. Therefore we can see that $plag$ and $plbg$ are set to true, $plar$ and $plbr$ are set to false , meanwhile $tlar$ and $tlbr$ are set to true, $tlag$ and $tlbg$ are set to false. Since the button is not pressed at the end. $req$ is set to false. 
-\newpage
-\chapter{Development Model}
-We can apply a development model to the task. Waterfall model, spiral model and V-model are some common methods used in the software development process. We are not choosing waterfall model as it follows a too tight structure. Every stage is gone through step by step. \textit{i.e. Requirements \rightarrow \,Design \rightarrow \,Implementation \rightarrow \,Verification \rightarrow \,Maintenance.} It works like a waterfall. The disadvantage is that changes are needed in some cases. We cannot guarantee everything in a stage is finalized before proceeding to the next stage. It will be cost ineffective if we want to make amendment to the preceding stages, it is especially difficult in modelling. We may experience difficulties when we started the implementation process, or we may want to specify more features and functions on larger systems. Hence waterfall model is not a good choice. V-model is regarded as a extended waterfall model. The inflexibility is also a massive hindrance in the area of formal methods. Therefore V-model is not suitable. 
-\newline \newline Spiral model would be suitable for development in Maude for this project. The concept of spiral model is different from the other models. It is like a combination of waterfall and rapid prototype model. It takes the iterative approach to the software development. The project starts from a small prototype at the beginning, it may undergoes a certain number of cycles, each cycle follows the stages under waterfall model. One of the main features about spiral model is the emphasis on risk analysis. At the beginning of each cycle, we should aware of the potential risks in that cycle. We should also have a review at the end of the cycle. This model is suitable for development in our project. The project is started with a simple module. More modules will be written after several cycles and these modules can communicate. More and more features can be built. We can keep improving the program until we are satisfied. Risk analysis also helps in maintaining the stability of the system. 
-Hence larger object-oriented systems can be well-suited with spiral model. The spiral model can be represented by the following figure.
-\begin{figure}[h!]
-  \centering
-      \includegraphics[scale=0.38]{spiral_model.png}
-  \caption{A spiral model (Boehm, 2000)}
-\end{figure}
-\newline
-\newline 
+\vspace{0.4cm}
+We are simulating that the button on the control panel is pressed once but not in the next iteration.
+We can see that some values in the object are changed. $crossing$ is set to true, that means pedestrians are allowed to cross the road. Therefore we can see that $plag$ and $plbg$ are set to true, $plar$ and $plbr$ are set to false , meanwhile $tlar$ and $tlbr$ are set to true, $tlag$ and $tlbg$ are set to false. Since the button is not pressed in the last iteration. $req$ is set to false. 
+\section{Model Checking}
+\label{sec:mc}
+We have to verify safety conditions and analyse the behaviours in different real-time operating systems. It can be done in Maude which is equipped with a linear temporal logic explicit-state model checker \cite{ltlmc}. Temporal logic consists of atom propositions and temporal operators. An untimed and time-bounded model checking can be done in Real-Time Maude. We are interested in real-time system therefore timed module will be used for model checking in pelican crossing. Conversion and changes are made from the previous module. It is turned into object-oriented timed module (\textbf{tomod}). We used two rewrite rules \textbf{[pressed]} and \textbf{[notpressed]} to replace the operations and equations. Therefore the system can be simulated in any given time limit. We also have an additional module which includes the predefined module \textit{TIMED-MODEL-CHECKER}. We can define the condition in which the properties hold. Here is one of the properties in pelican crossing: 
+\begin{verbatim}
+  eq {< system1 : System | tlar : tlar':Bool , tlag : tlag':Bool ,
+  tlbr : tlbr':Bool , tlbg : tlbg':Bool , crossing : C:Bool , 
+  plar : plar':Bool , plag : plag':Bool , plbr : plbr':Bool ,
+  plbg : plbg':Bool >} |= 
+  safecross(system1) = ((C and plag' and plbg' and tlar' and tlbr') or 
+  (C == false)) .
+\end{verbatim}
+We are looking for a property that no car should be passing when the pedestrians are allowed to cross the road. $C$ represents crossing. This $safecross$ property will return true if one of the following holds:
+\begin{gather*}
+\;C\;==\;false\\
+\;C\;\wedge\;plag'\;\wedge\;plbg'\;\wedge\;tlar'\;\wedge\;tlbr'\;==\;true\\
+\end{gather*}
+We can test the safety properties by running these commands:
+\begin{verbatim} (mc {initstate} |=t [] safecross(system1) in time <= 100 .) 
+ (mc {initstate} |=t [] safelight(system1) in time <= 100 .) 
+ (mc {initstate} |=t [] counter(system1) in time <= 3 .) 
+\end{verbatim}
+This is the result obtained for the $safecross$ property:
+\begin{lstlisting}[frame=single,linewidth=15cm]
+rewrites: 23378 in 25ms cpu (25ms real) (935120 rewrites/second)
+
+Model check {initstate} |=[]safecross(system1) in 
+   MODEL-CHECK-PELICANCROSS in time
+    <= 100 with mode deterministic time increase                                   
+
+Result Bool :                                                                      
+  true
+\end{lstlisting}
+\vspace{0.2cm}
+It shows that the control program for the pelican crossing satisfies the $safecross$ properties as the result is true in 100 time steps while it covers all the states in the system. Another property $safelight$ is verified, we ensure no pedestrian light and traffic light can be green at the same time. In addition, we want to make sure not every cases are true in model checking, an incorrect property $counter$ is tested as a counter example. Violations to the property can be found.
+The full implementation is given in Appendix \ref{chap:apc}.
 
 \newpage
 \chapter{Planning}
+\label{plan}
 \section{Milestones}
 In this chapter, we will explain about our project plan. The main steps of whole project will be as follows:
 \begin{enumerate}
-  \item Learning Maude: Study lecture material, resource on the internet.
-  \item Overview on Railway domain: Study thesis of Andrew Lawrence [ANDREW]. 
-  \item First own case study in Maude: pelican crossing
+  \item Learning Maude: Study lecture material \cite{ss} and resource on the internet.
+  \item Overview on Railway domain: Study thesis of Andrew Lawrence \cite{mres}. 
+  \item Pelican crossing example running in Maude.
 	\item Writing initial document.
 	\item Specification of modelling ladder logic.
 	\item Study model checking in detail: apply to pelican crossing.
-	\item Formalisation of ladder logic in Maude.
+	\item Ladder logic modelled in Maude.
 	\item Running case study with ladder logic implemented in $6$.
 	\item Building larger examples.
 	\item Study Hi-Maude.
 	\item Possible work related to Hi-Maude.
 \end{enumerate}
-Study on Hi-Maude may be introduced only if there is enough time.  
+The milestones will be as follows:
+\begin{enumerate}
+	\item Complete first own case study in Maude: pelican crossing including model checking.
+	\item Complete formalisation of ladder logic in Maude/Real-Time Maude.
+	\item Complete larger case study in Real-Time Maude.
+	\item Complete own case study in Hi-Maude.
+\end{enumerate}
+Study on Hi-Maude may be introduced only if everything is following the schedule. The timeline can be presented by a Gantt chart in the next section. M$_{n}$ represents the milestone number n.
 \section{Timeline}
-MS project-graph
+\begin{figure}[h!]
+\hspace*{-1.5cm}
+\begin{ganttchart}[
+y unit title=0.7cm,
+y unit chart=0.75cm,
+x unit =1cm,
+hgrid,
+vgrid,
+time slot format=isodate-yearmonth,
+compress calendar,
+bar/.style={fill=gray!70},
+bar height=.4,
+title/.style={fill=blue!40},
+title label font=\sffamily\bfseries\color{white},
+title left shift=.05,
+title right shift=-.05,
+milestone/.append style={fill=orange, rounded corners=5pt}
+]{2014-08}{2015-5}
+\gantttitlecalendar{year, month} \\
+\ganttbar{Background reading}{2014-08}{2014-10} \\
+\ganttbar{Overview on Railway domain}{2014-08}{2014-10} \\
+\ganttbar{Model pelican crossing \& M$_{1}$}{2014-09}{2014-10} 
+\ganttmilestone{}{2014-10} \\
+\ganttbar{Initial document}{2014-09}{2014-10} \\
+\ganttbar{Specification: ladder logic}{2014-10}{2014-11} \\
+\ganttbar{Model checking}{2014-10}{2014-11} \\
+\ganttbar{Model ladder logic \& M$_{2}$}{2014-11}{2014-12} 
+\ganttmilestone{}{2014-12} \\
+\ganttbar{Case study with ladder logic}{2014-11}{2014-12} \\
+\ganttbar{Larger examples \& M$_{3}$}{2014-12}{2015-2} 
+\ganttmilestone{}{2015-02} \\
+\ganttbar{Study Hi-Maude}{2015-1}{2015-03} \\
+\ganttbar{Work on Hi-Maude \& M$_{4}$}{2015-01}{2015-03} 
+\ganttmilestone{}{2015-03} \\
+\ganttbar{Dissertation}{2015-02}{2015-05} 
+\end{ganttchart}
+\caption{Gantt Chart}
+\end{figure}
+\FloatBarrier
+This project has been started since the beginning of August, some background reading on Maude has been done. It includes basic concept of this language, information about rewriting logic, syntax and semantics of Full Maude and Real-Time Maude \cite{primer}. Some articles and theses written in the area of Railway domain have been studied at the same period of time. These also contain ladder logic and pelican crossing. \textbf{Chapter \ref{sec:rcs}} contains the explanation on these subjects. After that several examples such as Stack and Clock were created in Maude followed by the pelican crossing (M$_{1}$ is reached). All those work is done before the initial document is submitted. Specification of the ladder logic will be done. Model checking is being studied at the same period of time including underlying theories such as Linear Temporal Logic. Model checking is included in the first case study under section \ref{sec:mc}, safety conditions are done in the pelican crossing example. Then, ladder logic should be formalised with the help of the specification written earlier (M$_{2}$ is reached). Case studies should be conducted with ladder logic follows by larger examples (M$_{3}$ is reached). Work related to Hi-Maude (\textit{e.g. To model a system}) maybe done (M$_{4}$ is reached) and dissertation will be written by the beginning of May 2015.
+\newpage
+\section{Development Model}
+We can apply a development model to the task. Waterfall model, spiral model and V-model are common methods in the software development process. Waterfall model is not a good choice in this situation as it follows a too tight structure. Every stage is gone through step by step. \textit{i.e. Requirements \rightarrow \,Design \rightarrow \,Implementation \rightarrow \,Verification \rightarrow \,Maintenance.} It works like a waterfall. The disadvantage is that changes are often needed. We cannot guarantee everything in a stage is finalized before proceeding to the next stage. It will be cost ineffective if we want to make amendment to the preceding stages, it is especially difficult in modelling. We may experience difficulties in the implementation process, or we may want to specify more features and functions on larger systems. V-model is regarded as a extended waterfall model. The inflexibility is also a massive hindrance in the area of formal methods. Hence waterfall model and V-model are not suitable. 
+\vspace{0.2cm} 
+\FloatBarrier A spiral model would be fit to this project. It is like a combination of waterfall and rapid prototype model. It takes the iterative approach to the software development. The project starts from a small prototype, it may undergoes a certain number of cycles, each cycle follows the stages under waterfall model. One of the main features about spiral model is the emphasis on risk analysis. At the beginning of each cycle, we should aware of the potential risks in that cycle. A review should be done at the end of the cycle. The project can be started with a simple module. More modules will be written after several cycles and these modules can cooperate, more features can be built. We can keep improving the program until we are satisfied. Risk analysis also helps to maintain the stability of the system. 
+Hence larger object-oriented systems can be well-suited with spiral model.
+\begin{figure}[!ht]
+  \centering
+      \includegraphics[scale=0.31]{spiral_model.png}
+  \caption{A Spiral Model (Boehm, 1988)}
+\end{figure}
+\newpage
+\chapter{Risk Management}
+In this chapter we will describe how the risk management would be done.
 \section{Risk Analysis}
-Table
-\chapter{Conclusion}
+We will be analysing the risks which may be encountered throughout this project. 
+Below is a table that summarises the possible risks in this project.
+\begin{table}[h]
+\hspace*{-1cm}
+\renewcommand\arraystretch{2.4}
+\begin{tabular}{|p{2.5cm}|p{6cm}|p{6cm}|}
+\hline
+\textbf{Risk number} & \textbf{Risk} & \textbf{Specific relation to this project} \\ \hline
+1 & Some of the parts overrun. & It may happen due to a task or its theory is too difficult to understand. Extra time may be needed for changes in the implementation.\\ \hline
+2 & Some tasks are too difficult to complete. & Likely to happen in writing larger examples and ladder logic, (\textit{e.g.} Applying model-checking to ladder logic.) LTL model checking maybe difficult to understand.\\ \hline
+3 & Machine crashes or accidental data loss. & Possible in any project. \\ \hline
+4 & Problems with integrating tools. & Possible to happen in Hi-Maude as specific version of Full-Maude is needed for using some extensions. \\ \hline
+5 & Unsuitable software development model. & Possible to happen while writing programs in Maude. \\ \hline
+6 & Lack of validation of the program. & Possible to happen where the characteristics of the real system are not really being modeled despite the program itself is correct.  \\
+ \hline
+\end{tabular}
+\caption{Risk Identification}
+\label{table:ri}
+\end{table}
+\newpage
+\begin{table}[h]
+$\rotatebox[origin=c]{90}{}
+\left.
+\renewcommand\arraystretch{2.4}
+\begin{tabular}{p{2.5cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|}
+\cline{2-4}
+                                & \multicolumn{3}{c|}{\textbf{Consequence}}    \\ \hline
+\multicolumn{1}{|l|}{\textbf{Probability}} & Little & Moderate & Serious \\ \hline
+\multicolumn{1}{|l|}{High} &
+\multicolumn{1}{|c|}{\cellcolor[rgb]{1,0.74,0}} & 
+\multicolumn{1}{|c|}{\cellcolor[rgb]{1,0.5,0}\centering \textbf{1}} &
+\multicolumn{1}{|c|}{\cellcolor{red}}    \\ \hline
+\multicolumn{1}{|l|}{Medium} &
+\multicolumn{1}{|c|}{\cellcolor[rgb]{1,1,0}} & 
+\multicolumn{1}{|c|}{\cellcolor[rgb]{1,0.74,0}} & 
+\multicolumn{1}{|c|}{\cellcolor[rgb]{1,0.5,0}\textbf{2,6}}  \\ \hline
+\multicolumn{1}{|l|}{Low} & 
+\multicolumn{1}{|c|}{\cellcolor[rgb]{0,0.8,0}}& 
+\multicolumn{1}{|c|}{\cellcolor[rgb]{1,1,0}\centering \textbf{5}} & 
+\multicolumn{1}{|c|}{\cellcolor[rgb]{1,0.74,0}\textbf{3,4}}\\ \hline
+\end{tabular}
+\hspace{0.4cm}
+\right\uparrow
+\rotatebox[origin=c]{90}{\textstyle{increasing\;severity}}\vspace{0.3cm}$
+\hspace*{+0.5cm}
+$\xrightarrow[\textstyle{increasing\;severity}]{\hspace*{11cm}}$
+\caption{Severity Measurement}
+\label{table:sm}
+\end{table}
+In the table, the numbers refer to the Risk number in table \ref{table:ri}. (1) and (2) are seen as more dangerous risks. (1) may not cause much impact to the overall project, however it is the most common problem in any project, it is very likely to happen therefore this risk must be handled and monitored. (2) is not much common but the completeness of tasks is important. It may affect the following work. Therefore, the structure of the whole project may be different without the completion of certain tasks. (4) and (2) may cause similar impact which (4) is not likely to happen. (3) is happened rarely but loss of data is a disaster. With regard to (5), choosing the wrong software development model to start may affect the planning and management in the process especially in a larger system. The whole program may becomes trivial because of (6). The properties should be modeled and the understanding to the system should be clear.
+\section{Risk Management}
+In this section we will explain the strategies to be used for each risk we have mentioned before. There are three types of strategies which can be used. We can think of precaution and avoiding it with Avoidance Strategy (A). We can treat it and reducing its impact with Minimization Strategy (M). We can solve the problem alternatively with Contingency Plan (C).
+\begin{table}[h]
+\hspace{-2cm}
+\renewcommand\arraystretch{2.4}
+\begin{tabular}{|l|p{12cm}|}
+\hline
+\textbf{Risk} & \textbf{Strategy} \\ \hline
+    (1)Overrun      &  Concentrate on the important parts, consider giving up tasks that is less important $e.g.$ Hi-Maude (M). \newline Regularly monitor the time plan, modify it if necessary (M). \newline Allow more time than expected for tasks in time plan (A). \\ \hline
+    (2)Difficult task      &  Follow the spiral model, prepare well at the beginning and review at the end of each cycle (A). \newline Try to think of different approach before start doing the tasks (A). \newline Do enough reading until familiar with the topic related to the task (A). \\ \hline
+    (3)Data loss      &  Keep back up files on external hard drive (C). \newline Synchronise the file with network drive, enable real-time updates (C). \\ \hline
+    (4)Integrating tools      &  Try to run the tools before deciding to do any task on it (A). \newline Contact the author of the tool if necessary (M). \\ \hline
+    (5)Software development model      &  Use another software development model (C). \newline Identify the advantages and disadvantages of various models (A). \\ \hline
+		(6)Lack of validation & Ask for advice from members of the Railway Verification Group (M). \newline Review the program especially in larger examples, check through whether the properties being modeled are corresponding to the functions created in the program (A). \\ \hline
+\end{tabular}
+\caption{Strategies}
+\end{table}
+\FloatBarrier
+\section{Risk Monitoring}
+Specific strategies have been suggested for each risk. All of the risks above will be monitored. Any potential risk will be added to the list. These risks will be reviewed regularly in order to maintain the effectiveness of the project. All the steps in Risk Management Process has been explained in this chapter.
+\chapter{Summary}
+This initial document provides a brief introduction to the project. Background information and the project aims have been discussed at the beginning of the document. The main idea is to investigate the feasibility of modelling Railway Control System in Maude. Chapter \ref{sec:maude} includes the syntax and semantics of Full Maude and Real-Time Maude. Stack and Clock are used to demonstrate the ideas in Maude. Basic knowledge on the Railway Domain has been discussed. Ladder logic can be useful in modelling railway interlockings. In order to keep the progress on the right track, a case study on pelican crossing is conducted. Basic instructions on model checking has been applied. This case study is related to Maude and ladder logic. More examples in the railway domain will be built on the basis of ladder logic using Maude. The initial work is done up to this point. The following chapters are related to future work. Project plan, milestones and development model are discussed in these chapters. Towards the end of this document, the outline of risk management procedure are shown. Each of the risk has been analysed. According to the timeline, another set of work is ready to be started. The project plan will be reviewed throughout the project in order to keep good progress.
+\newline \newline
+\newpage    
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{initial}
+\newpage
+\appendix
+\chapter{Simple examples}
+\section*{The Stack Example in Full Maude}
+\begin{verbatim}
+fmod STACK is
+   sorts Stack Entity NEStack  .
+   subsort NEStack < Stack .
+	
+   op push : Stack Entity -> NEStack .
+   op pop : NEStack -> Stack .
+   op top : NEStack -> Entity .
+   vars E F : Entity .
+   var S : Stack .
+   eq pop(push(S,E)) = S . 
+   eq top(push(S,E)) = E .   
+endfm
+\end{verbatim}
+
+\section*{The Clock Example in Real-Time Maude}
+\label{sec:aclock}
+\begin{verbatim}
+(tomod CLOCK is protecting NAT-TIME-DOMAIN .
+   class Clock | hour : Time , minute : Time , second : Time .
+   op c1 : -> Oid [ctor] .
+   op initstate : -> Configuration .
+   eq initstate = < c1 : Clock | hour : 0 , minute : 0 , second : 0 > .
+   var O : Oid . 
+   vars S M H : Time .
+	
+   crl [second] : {< O : Clock | second : S >} 
+      => {< O : Clock | second : S + 1 >} in time 1 if S < 59 .
+			
+   crl [minute] : {< O : Clock | minute : M , second : S >} 
+      => {< O : Clock | minute : M + 1 , second : 0 >} 
+        in time 1 if S == 59 /\ M < 59 .
+				
+   crl [hour] : {< O : Clock | hour : H , minute : M , second : S >} 
+      => {< O : Clock | hour : H + 1 , minute : 0 ,  second : 0 >} 
+        in time 1 if S == 59 /\ M == 59 /\ H < 23 .
+				
+   crl [reset] : {< O : Clock | hour : H , minute : M , second : S >} 
+      => {< O : Clock | hour : 0 , minute : 0 ,  second : 0 >} 
+        in time 1 if S == 59 /\ M == 59 /\ H == 23 .
+endtom)
+\end{verbatim}
+
+\chapter{The Full Source Code for the Pelican Crossing Example}
+\label{chap:apc}
+\begin{verbatim}
+(tomod PELICAN is protecting NAT-TIME-DOMAIN .
+ class System | crossing : Bool , req : Bool , tlag : Bool , tlbg : Bool , 
+ tlar : Bool , tlbr : Bool , plag : Bool , plbg : Bool , plar : Bool , plbr : Bool .
+
+ var S : Oid .
+ vars A B C R : Bool .
+ op system1 : -> Oid [ctor] .
+ ops crossing' req' : Bool Bool -> Bool .
+ eq crossing'(A,B) = A and not B .
+ eq req'(A,B) = A and not B .
+
+ rl [pressed] : { < S : System | crossing : C , req : R > } => 
+  { < S : System | crossing : crossing'(R,C) , req : req'(true,R) , 
+  tlag : (req'(true,R)) and crossing'(R,C) == false ,
+  tlar : crossing'(R,C) ,
+  tlbg : (req'(true,R)) and crossing'(R,C) == false , 
+  tlbr : crossing'(R,C) ,
+  plag : crossing'(R,C) , plar : crossing'(R,C) == false ,
+  plbg : crossing'(R,C) , plbr : crossing'(R,C) == false > } in time 1 .
+
+ rl [notpressed] : { < S : System | crossing : C , req : R > } => 
+  { < S : System | crossing : crossing'(R,C) , req : req'(false,R) , 
+  tlag : crossing'(R,C) == false ,
+  tlar : crossing'(R,C) ,
+  tlbg : crossing'(R,C) == false , 
+  tlbr : crossing'(R,C) ,
+  plag : crossing'(R,C) , plar : crossing'(R,C) == false ,
+  plbg : crossing'(R,C) , plbr : crossing'(R,C) == false > } in time 1 .
+
+ op press : Configuration -> Configuration .
+ eq press(< S : System | crossing : C , req : R >) = 
+  < S : System | crossing : crossing'(R,C) , req : req'(true,R) , 
+  tlag : (req'(true,R)) and crossing'(R,C) == false ,
+  tlar : crossing'(R,C) ,
+  tlbg : (req'(true,R)) and crossing'(R,C) == false , 
+  tlbr : crossing'(R,C) ,
+  plag : crossing'(R,C) , plar : crossing'(R,C) == false ,
+  plbg : crossing'(R,C) , plbr : crossing'(R,C) == false > .
+
+ op notpress : Configuration -> Configuration .
+ eq notpress(< S : System | crossing : C , req : R >) = 
+   < S : System | crossing : crossing'(R,C) , req : req'(false,R) , 
+  tlag : crossing'(R,C) == false ,
+  tlar : crossing'(R,C) ,
+  tlbg : crossing'(R,C) == false , 
+  tlbr : crossing'(R,C) ,
+  plag : crossing'(R,C) , plar : crossing'(R,C) == false ,
+  plbg : crossing'(R,C) , plbr : crossing'(R,C) == false > .
+endtom)
+
+(tomod MODELPC is protecting PELICAN .
+  op initstate : -> Configuration .
+  eq initstate = < system1 : System | crossing : false , req : false , 
+  tlag : false , tlbg : false , tlar : true , tlbr : true , 
+  plag : false , plbg : false , plar : true , plbr : true > .
+endtom)
+
+ (tomod MODEL-CHECK-PELICANCROSS is 
+  including TIMED-MODEL-CHECKER .
+  protecting MODELPC .
+  vars tlar' tlbr' plar' plbr' tlag' tlbg' plag' plbg' C : Bool .
+  op system1 : -> Oid [ctor] .
+  ops safecross safelight counter : Oid -> Prop [ctor] .
+
+  eq {< system1 : System | tlar : tlar':Bool , tlag : tlag':Bool ,
+   tlbr : tlbr':Bool , tlbg : tlbg':Bool , crossing : C:Bool , 
+   plar : plar':Bool , plag : plag':Bool , plbr : plbr':Bool ,
+   plbg : plbg':Bool >} |= 
+   safecross(system1) = ((C and plag' and plbg' and tlar' and tlbr') or 
+   (C == false)) .
+
+  eq {< system1 : System | tlar : tlar':Bool , tlag : tlag':Bool ,
+   tlbr : tlbr':Bool , tlbg : tlbg':Bool , crossing : C:Bool , 
+   plar : plar':Bool , plag : plag':Bool , plbr : plbr':Bool , 
+   plbg : plbg':Bool >} |= safelight(system1) = not((tlbg' or tlag') and 
+   (plag' or plbg')) .
+
+  eq {< system1 : System | tlar : tlar':Bool , tlag : tlag':Bool ,
+   tlbr : tlbr':Bool , tlbg : tlbg':Bool , crossing : C:Bool , 
+   plar : plar':Bool , plag : plag':Bool , plbr : plbr':Bool , 
+   plbg : plbg':Bool >} |= counter(system1) = not(tlbr' and plbr') .
+  endtom)
+\end{verbatim}
+
+\chapter{Ladder Logic: First Attempt}
+This is our first attempt to model ladder logic in Maude. This work will be continue and worked out more precisely.
+\begin{verbatim}
+(tomod RUNG is protecting NAT-TIME-DOMAIN .
+  sorts Rung Coil Contact .
+  subsorts Coil Contact < Rung .
+
+  ops lland llor : Rung Rung -> Rung .
+  op coil : Nat -> Coil [ctor] .
+  ops cont necont : Nat -> Contact [ctor] .
+endtom)
+
+(view Rungs from TRIV to RUNG is
+  sort Elt to Rung .
+endv)
+
+(tomod LLINTERLOCKING is protecting NAT-TIME-DOMAIN . 
+  protecting MAP{Nat,Bool}  * (sort Map{Nat,Bool} to MapNB,
+                               sort Entry{Nat,Bool} to EntryNB) .
+  protecting RUNG .
+  protecting LIST{Rungs} .
+  protecting LIST{Bool} .
+
+  class Inter | ladderlogic : List{Rungs}, inputs : MapNB, outputs : MapNB .
+  
+  op evalll : Rung MapNB MapNB -> MapNB .
+  op evalrung : Rung MapNB MapNB -> Bool .
+  op getcoil : Rung -> Nat .  
+  op myinter : -> Oid .
+
+  var rlist : List{Rungs} .
+  var O : Oid .
+  vars R R1 R2 : Rung .
+  vars M1 M2 : MapNB .
+  vars E1 E2 : EntryNB .
+  vars N1 N2 : Nat .
+
+  crl [eval] :  {< O : Inter | ladderlogic : rlist, inputs : M1, outputs : M2 >} 
+   => {< O : Inter | ladderlogic : tail(rlist),  inputs : M1, 
+   outputs : evalll(head(rlist),M1,M2) >} in time 1 if size(rlist) > 0 .
+
+  crl [eval2] :  {< O : Inter | ladderlogic : rlist, inputs : M1, outputs : M2 >} 
+   => {< O : Inter | ladderlogic : rlist,  inputs : M1, outputs : M2 >} 
+   in time 1 if size(rlist) == 0 .  
+  
+  rl [compcoil] : evalll(R,M1,M2) => insert(getcoil(R) ,evalrung(R,M1,M2) , M2) .
+
+  rl [comprung] : evalrung(coil(N1),M1,M2) => true  .
+  rl [comprung2] : evalrung(lland(R,R1),M1,M2) => evalrung(R,M1,M2) and 
+   evalrung(R1,M1,M2) .
+  rl [comprung3] : evalrung(llor(R,R1),M1,M2) => evalrung(R,M1,M2) or 
+   evalrung(R1,M1,M2) .
+  rl [comprung4] : evalrung(cont(N1),M1,M2) => M1[N1] .
+  rl [comprung5] : evalrung(necont(N1),M1,M2) => not M1[N1] .
+
+  rl [getcoil] : getcoil(lland(R1,R2)) => getcoil(R2) .
+  rl [getcoil2] : getcoil(coil(N1)) => N1 . 
+endtom)
+\end{verbatim}
+\iffalse \section{LTL Model Checker/search command?}
+With the help of a calculator, we can say that the clock is correct. However, can we conclude that the clock is always correct? In order to ensure the system is correct and safe, we should perform verification, it can be done by applying the model checking. 
+
+We have to verify safety conditions in different real-time operating systems. There
+
+LTL model checker. Model checking can be done with a given time limit. Linear Temporal Logic
+
+\newpage
+\begin{verbatim}
 http://www.koreabang.com/2014/stories/seoul-subway-crash-passengers-ignore-safety-announcement.html
 
 http://www.washingtonpost.com/wp-dyn/content/article/2009/06/22/AR2009062203261.html
@@ -356,5 +784,8 @@ http://www-verimag.imag.fr/~tripakis/papers/icfem09.pdf
 
 http://en.wikipedia.org/wiki/Santiago_de_Compostela_derailment
 http://www.railjournal.com/index.php/europe/driver-error-only-cause-of-santiago-accident-says-report.html
+\end{verbatim}
+\fi
+
 \end{document}
 
