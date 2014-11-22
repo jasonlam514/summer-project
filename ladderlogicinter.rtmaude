@@ -31,6 +31,7 @@ endv)
   protecting LIST{Rungs} .
   protecting LIST{Bool} .
 
+*** This class Inter includes attributes ladderlogic, inputs in the format of ([contact id] |-> Boolean) and outputs which can be left as empty.
   class Inter | ladderlogic : List{Rungs}, inputs : MapNB, outputs : MapNB .
   
   op evalll : Rung MapNB MapNB -> MapNB .
@@ -45,20 +46,28 @@ endv)
   vars E1 E2 : EntryNB .
   vars N1 N2 : Nat .
 
+*** We compute the first rung from attribute ladderlogic, this rewrite rule will be applied until all rungs have been computed, the number of rungs will decrease by 1 and the output will increase by 1 in each time step.  
   crl [eval] :  {< O : Inter | ladderlogic : rlist, inputs : M1, outputs : M2 >} => {< O : Inter | ladderlogic : tail(rlist),  inputs : M1, outputs : evalll(head(rlist),M1,M2) >} in time 1 if size(rlist) > 0 .
 
-  crl [eval2] :  {< O : Inter | ladderlogic : rlist, inputs : M1, outputs : M2 >} => {< O : Inter | ladderlogic : rlist,  inputs : M1, outputs : M2 >} in time 1 if size(rlist) == 0 .
+***  crl [eval2] :  {< O : Inter | ladderlogic : rlist, inputs : M1, outputs : M2 >} => {< O : Inter | ladderlogic : rlist,  inputs : M1, outputs : M2 >} in time 1 if size(rlist) == 0 .
   
-  
+  *** To evaluate each rung, we have to obtain the coil number to produce the output.
   rl [compcoil] : evalll(R,M1,M2) => insert(getcoil(R) ,evalrung(R,M1,M2) , M2) .
 
-  rl [comprung] : evalrung(coil(N1),M1,M2) => true  .
+  *** If N1 is coil then it should be rewritten as true.
+  rl [comprung] : evalrung(coil(N1),M1,M2) => true .
+  *** If it encounters a connective AND, evaluates the two rungs separately using AND.
   rl [comprung2] : evalrung(lland(R,R1),M1,M2) => evalrung(R,M1,M2) and evalrung(R1,M1,M2) .
+  *** If it encounters a connective OR, evaluates the two rungs separately using OR.
   rl [comprung3] : evalrung(llor(R,R1),M1,M2) => evalrung(R,M1,M2) or evalrung(R1,M1,M2) .
+  *** If a contact is found, uses the input map M1 to find the corresponding value of the contact.
   rl [comprung4] : evalrung(cont(N1),M1,M2) => M1[N1] .
+  *** If a negation of contact is found, uses the input map M1 to find the corresponding value of the contact with negation.
   rl [comprung5] : evalrung(necont(N1),M1,M2) => not M1[N1] .
 
+  *** Getting the coil value with connectives AND as coil should be put at the end. e.g. (lland(cont(8),coil(10))))
   rl [getcoil] : getcoil(lland(R1,R2)) => getcoil(R2) .
+  *** Return the coil value once the coil has been discovered.
   rl [getcoil2] : getcoil(coil(N1)) => N1 . 
   
   

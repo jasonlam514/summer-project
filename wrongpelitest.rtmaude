@@ -1,0 +1,69 @@
+*** This is the counter example, crossing condition has been removed for the pressed case. Counter examples found for safelight property.
+
+(tomod PELICAN is protecting NAT-TIME-DOMAIN .
+class System | crossing : Bool , req : Bool , tlag : Bool , tlbg : Bool , 
+tlar : Bool , tlbr : Bool , plag : Bool , plbg : Bool , plar : Bool , plbr : Bool .
+
+var S : Oid .
+vars A B C R : Bool .
+op system1 : -> Oid [ctor] .
+ops crossing' req' : Bool Bool -> Bool .
+eq crossing'(A,B) = A and not B .
+eq req'(A,B) = A and not B .
+
+rl [pressed] : { < S : System | crossing : C , req : R > } => 
+{ < S : System | crossing : crossing'(R,C) , req : req'(true,R) , 
+tlag : (req'(true,R)) == false ,
+tlar : crossing'(R,C) ,
+tlbg : (req'(true,R)) == false , 
+tlbr : crossing'(R,C) ,
+plag : crossing'(R,C) , plar : crossing'(R,C) == false ,
+plbg : crossing'(R,C) , plbr : crossing'(R,C) == false > } in time 1 .
+
+rl [notpressed] : { < S : System | crossing : C , req : R > } => 
+{ < S : System | crossing : crossing'(R,C) , req : req'(false,R) , 
+tlag : crossing'(R,C) == false ,
+tlar : crossing'(R,C) ,
+tlbg : crossing'(R,C) == false , 
+tlbr : crossing'(R,C) ,
+plag : crossing'(R,C) , plar : crossing'(R,C) == false ,
+plbg : crossing'(R,C) , plbr : crossing'(R,C) == false > } in time 1 .
+endtom)
+
+(tomod EXAMPLE is protecting PELICAN .
+  ops initstate : -> Configuration .
+  eq initstate = < system1 : System | crossing : false , req : false , 
+  tlag : false , tlbg : false , tlar : true , tlbr : true , plag : false , plbg : false 
+  , plar : true , plbr : true > .
+endtom)
+
+ (tomod MODEL-CHECK-PELICANCROSS is 
+  including TIMED-MODEL-CHECKER .
+
+  protecting EXAMPLE .
+  vars tlar' tlbr' plar' plbr' tlag' tlbg' plag' plbg' C : Bool .
+  op system1 : -> Oid [ctor] .
+  
+  ops safecross safelight counter : Oid -> Prop [ctor] .
+
+  eq {< system1 : System | tlar : tlar':Bool , tlag : tlag':Bool ,
+tlbr : tlbr':Bool , tlbg : tlbg':Bool , crossing : C:Bool , plar : plar':Bool , plag : plag':Bool ,
+plbr : plbr':Bool , plbg : plbg':Bool >} |= safecross(system1) = ((C and plag' and plbg' and tlar' and tlbr') or (C == false)) .
+
+  eq {< system1 : System | tlar : tlar':Bool , tlag : tlag':Bool ,
+tlbr : tlbr':Bool , tlbg : tlbg':Bool , crossing : C:Bool , plar : plar':Bool , plag : plag':Bool ,
+plbr : plbr':Bool , plbg : plbg':Bool >} |= safelight(system1) = not((tlbg' or tlag') and (plag' or plbg')) .
+
+  eq {< system1 : System | tlar : tlar':Bool , tlag : tlag':Bool ,
+tlbr : tlbr':Bool , tlbg : tlbg':Bool , crossing : C:Bool , plar : plar':Bool , plag : plag':Bool ,
+plbr : plbr':Bool , plbg : plbg':Bool >} |= counter(system1) = not(tlbr' and plbr') .
+
+  endtom)
+  
+  (mc {initstate} |=t [] safecross(system1) in time <= 100 .) 
+  (mc {initstate} |=t [] safelight(system1) in time <= 100 .) 
+  (mc {initstate} |=t [] counter(system1) in time <= 3 .) 
+
+*** (not((tlbg' or tlag') and (tlar' or tlbr'))) *** and (not((plbg' or plag') and (plar' or *** plbr'))) and (not((tlbg' or tlag') and (plag' or plbg'))) .
+
+
