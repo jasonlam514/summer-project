@@ -1,0 +1,37 @@
+\documentclass[a4paper,11pt]{report}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{alltt}
+\setlength{\oddsidemargin}{1.8cm}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{pgfgantt}
+\usepackage{placeins}
+\usepackage[table]{xcolor}
+\usepackage{colortbl}
+\usepackage{array}
+\usepackage[compact]{titlesec}
+\usepackage{tocloft}
+%\renewcommand\cfttoctitlefont{\Large\bfseries} 
+\renewcommand\cftaftertoctitleskip{\setlength{10}}
+\setlength{\parindent}{0pt}
+\titleformat{\chapter}[display]
+{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\begin{document}
+\input{ladderlogic.tex}
+% ${ \ } $ \vspace{4cm}
+%
+%% Titlepage 1 
+%
+\setcounter{page}{1}
+\titlespacing*{\chapter}{0pt}{-30mm}{40pt}
+\chapter{Ladder Logic}
+%\section{Motivation}
+Ladder logic is a method for representing a set of logical functions. They are known as \textit{rungs}. Ladder logic is named for the resemblance to a ladder. It is often applied in relay logic hardware. For the graphical representation of a ladder logic program, there are two vertical rails with a set of horizontal rungs in between. Each rung is a function for computing boolean expression from a fixed number of inputs. These boolean inputs are called \textit{contacts}. There are only two types of contacts, open and closed contacts, which represent un-negated and negated boolean value respectively. Contacts can be connected by different type of connectives within a rung, the connective can be a conjunction(logical AND), in which the outcome true must be produced by two contacts with input values true. The other connective is a disjunction(logical OR), in which the outcome true can be produced by a true value from either contacts. There is only one output for each rung and that is called a \textit{coil}. A coil is the rightmost entity of a rung in graphical representation, it stores the output of the rung which is a boolean value. The rungs are executed from the top to the bottom. Hence the outputs can also be used as inputs in the rungs below. 
+\newline 
+\newline 
+To compute the output of a ladder logic rung, we should first look at the leftmost contact and obtain its value, then we can look for the connective and the value of the next contact, these steps will be repeated until we arrive to the rightmost entity which is a coil. As we have got all the input values, we translate the connectives into logical operations. The output can be worked out using propositional logic.
+
+\end{document}
+

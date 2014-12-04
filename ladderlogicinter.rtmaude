@@ -56,9 +56,9 @@ endv)
 
   *** If N1 is coil then it should be rewritten as true.
   rl [comprung] : evalrung(coil(N1),M1,M2) => true .
-  *** If it encounters a connective AND, evaluates the two rungs separately using AND.
+  *** If it sees a connective AND, evaluates the two rungs separately using AND.
   rl [comprung2] : evalrung(lland(R,R1),M1,M2) => evalrung(R,M1,M2) and evalrung(R1,M1,M2) .
-  *** If it encounters a connective OR, evaluates the two rungs separately using OR.
+  *** If it sees a connective OR, evaluates the two rungs separately using OR.
   rl [comprung3] : evalrung(llor(R,R1),M1,M2) => evalrung(R,M1,M2) or evalrung(R1,M1,M2) .
   *** If a contact is found, uses the input map M1 to find the corresponding value of the contact.
   rl [comprung4] : evalrung(cont(N1),M1,M2) => M1[N1] .
