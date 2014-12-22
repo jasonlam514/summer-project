@@ -1,0 +1,12 @@
+fmod STACK is
+   sorts Stack Entity NEStack  .
+   subsort NEStack < Stack .
+	
+   op push : Stack Entity -> NEStack .
+   op pop : NEStack -> Stack .
+   op top : NEStack -> Entity .
+   vars E F : Entity .
+   var S : Stack .
+   eq pop(push(S,E)) = S . 
+   eq top(push(S,E)) = E .   
+endfm

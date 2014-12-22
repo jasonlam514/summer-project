@@ -1,0 +1,118 @@
+*** Input to be the list of bools(pressed) and M2(cross, req)
+*** op genInput(list(bools), M2) => genInput(tail(bools), M2) :
+*** pressed |-> head(bools), M2 output M3 
+*** List of bool output
+
+
+(tomod RUNG is protecting NAT-TIME-DOMAIN .
+  
+  sorts Rung Coil Contact .
+  subsorts Coil Contact < Rung .
+
+  ops _lland_ _llor_ : Rung Rung -> Rung .
+  op coil : signal -> Coil [ctor] .
+  ops cont necont : signal -> Contact [ctor] .
+
+
+endtom)
+
+(tomod PELICANCROSSING is protecting NAT-TIME-DOMAIN .
+ 
+  sort signal .
+  ops req crossing crossing' pressed req' tlag tlbg tlar tlbr plag plbg plar plbr : -> signal .
+
+endtom)
+
+
+(view PELI from TRIV to PELICANCROSSING is
+    sort Elt to signal .
+endv)
+
+(view Rungs from TRIV to RUNG is
+    sort Elt to Rung .
+endv)
+
+(tomod LLINTERLOCKING is protecting NAT-TIME-DOMAIN . 
+  protecting MAP{PELI,Bool}  * (sort Map{PELI,Bool} to MapNB,
+                               sort Entry{PELI,Bool} to EntryNB) .
+  protecting RUNG .
+  protecting PELICANCROSSING .
+  protecting LIST{Rungs} .
+  protecting LIST{Bool} .
+
+  class Inter | ladderlogic : List{Rungs}, inputs : List{Bool}, outputs : MapNB .
+  
+  op evalll : Rung MapNB MapNB -> MapNB .
+  op evalrung : Rung MapNB -> Bool .
+  op getcoil : Rung -> signal .  
+  op myinter : -> Oid .
+  op evalll2 :  List{Rungs} MapNB MapNB -> MapNB .
+
+  var rlist : List{Rungs} .
+  var O : Oid .
+  vars R R1 R2 : Rung .
+  vars M1 M2 M3 : MapNB .
+  vars E1 E2 : EntryNB .
+  vars N1 N2 : signal .
+  var LB : List{Bool} .
+
+  crl [eval] :  {< O : Inter | ladderlogic : rlist, inputs : LB, outputs : M2 >} => {< O : Inter | ladderlogic : rlist,  inputs : tail(LB) head(LB), outputs : evalll2(rlist,insert(pressed,head(LB),M2),empty) >} in time 1 if size(LB) > 0 .
+
+  crl [evalll2] : evalll2(rlist,M2,M1) => M1 if size(rlist) == 0 . 
+
+  crl [evalll3] : evalll2(rlist,M2,M1) => evalll2(tail(rlist), insert(getcoil(head(rlist)),evalrung(head(rlist),M2),M2), evalll(head(rlist),M2,M1)) if size(rlist) > 0 . 
+
+  rl[evalll] : evalll(R,M1,M2) => insert(getcoil(R) ,evalrung(R,M1) , M2) .
+  
+  rl[evalrung] : evalrung(coil(N1),M1) => true .
+  rl[evalrung2] : evalrung((R)lland(R1),M1) => evalrung(R,M1) and evalrung(R1,M1) .
+  rl[evalrung3] : evalrung((R)llor(R1),M1) => evalrung(R,M1) or evalrung(R1,M1) .
+  crl[evalrung4] : evalrung(cont(N1),M1) => M1[N1] if $hasMapping(M1, N1) .
+  crl[evalrung5] : evalrung(necont(N1),M1) => not M1[N1] if $hasMapping(M1, N1) .
+
+  rl[getcoil] : getcoil((R1)lland(R2)) => getcoil(R2) .
+  rl[getcoil2] : getcoil(coil(N1)) => N1 . 
+  
+endtom)
+
+(tomod example is protecting NAT-TIME-DOMAIN .
+protecting LLINTERLOCKING .
+vars A B : Bool .
+ops conf1 conf2 : -> Configuration .
+
+ops ladder1 ladder2 ladder3 ladder4 ladder5 ladder6 ladder7 ladder8 ladder9 ladder10 : -> Rung .
+ops map1 : -> MapNB .
+eq ladder1 = (cont(req))lland((necont(crossing))lland(coil(crossing))) .
+eq ladder2 = (cont(pressed))lland((necont(req))lland(coil(req))) .
+eq ladder3 =  ((necont(pressed))llor(cont(req)))lland((necont(crossing))lland(coil(tlag))) .
+eq ladder4 = ((necont(pressed))llor(cont(req)))lland((necont(crossing))lland(coil(tlbg))) .
+eq ladder5 = (cont(crossing))lland(coil(tlar)) .
+eq ladder6 = (cont(crossing))lland(coil(tlbr)) .
+eq ladder7 = (cont(crossing))lland(coil(plag)) .
+eq ladder8 = (cont(crossing))lland(coil(plbg)) .
+eq ladder9 = (necont(crossing))lland(coil(plar)) .
+eq ladder10 = (necont(crossing))lland(coil(plbr)) .
+eq conf1 = < myinter : Inter | ladderlogic : ladder1 ladder2 ladder3 ladder4 ladder5 ladder6 ladder7 ladder8 ladder9 ladder10 , inputs : true false false true false true, outputs : map1 > .
+
+eq map1 = req |-> false, crossing |-> false, tlag |-> false, tlbg |-> false, tlar |-> true, tlbr |-> true, plag |-> false, plbg |-> false, plar |-> true, plbr |-> true .
+endtom)
+
+ (tomod MODEL-CHECK-PELICANCROSS is 
+  including TIMED-MODEL-CHECKER .
+  protecting example .
+  vars tlar' tlbr' plar' plbr' tlag' tlbg' plag' plbg' req' C' : Bool .
+  var LB2 : List{Bool} .
+  var rlist2 : List{Rungs} . 
+  var MB : MapNB .
+  ops safecross safelight counter : Oid -> Prop [ctor] .
+  op system1 : -> Oid [ctor] .
+
+  eq {< system1 : Inter | ladderlogic : rlist2:List{Rungs} , inputs : LB2:List{Bool} , outputs : MB:MapNB >} |= safelight(system1) = true .
+
+***  eq {< system1 : Inter | ladderlogic : rlist2:List{Rungs} , inputs : LB2:List{Bool} , outputs : (req |-> req':Bool, crossing |-> false, tlag |-> tlag':Bool, tlbg |-> tlbg':Bool, tlar |-> tlar':Bool, tlbr |-> tlbr':Bool, plag |-> plag':Bool, plbg |-> plbg':Bool, plar |-> plar':Bool, plbr |-> plbr':Bool) >} |= safelight(system1) = true .
+
+  endtom)
+
+ (trew {conf1} in time <= 10 .)
+ *** (mc {conf1} |=t [] safelight(system1) in time <= 1 .) 
+

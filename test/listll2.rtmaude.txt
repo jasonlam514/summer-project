@@ -1,0 +1,45 @@
+(tomod RUNG is 
+  protecting NAT-TIME-DOMAIN .
+  protecting LIST{Bool} .
+  sorts Rung Coil Contact .
+  subsorts Coil Contact < Rung .
+
+  ops lland llor : Rung Rung -> Rung .
+  op coil : Nat -> Coil [ctor] .
+  ops cont necont : Nat -> Contact [ctor] .
+
+
+endtom)
+
+(view Rungs from TRIV to RUNG is
+    sort Elt to Rung .
+endv)
+
+(view List{Bool} from TRIV to RUNG is
+    sort Elt to LIST{Bool} .
+endv)
+
+
+(tomod LLINTERLOCKING is 
+  protecting NAT-TIME-DOMAIN . 
+  protecting MAP{Nat,List{Bool}}  * (sort Map{Nat,List{Bool}} to MapNL,
+                               sort Entry{Nat,List{Bool}} to EntryNL) .
+  protecting RUNG .
+  protecting LIST{Rungs} .
+  *** protecting LIST{Bool} .
+
+*** This class Inter includes attributes ladderlogic, inputs in the format of ([contact id] |-> a list of Boolean) and outputs which can be left as empty.
+  class Inter | ladderlogic : List{Rungs}, inputs : MapNL, outputs : MapNL .
+  
+  op getcoil : Rung -> Nat .  
+  op myinter : -> Oid .
+  op hi : MapNL -> MapNL .
+  var rlist : List{Rungs} .
+  var O : Oid .
+  vars R R1 R2 : Rung .
+  vars ML1 ML2 : MapNL .
+  vars N1 N2 : Nat .
+
+  rl[allfirst] : hi(ML2) => ML2 .
+  eq ML1 = (1 |-> [true,false]) .
+endtom)

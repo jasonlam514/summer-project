@@ -1,0 +1,1 @@
+sudo ./maude.intelDarwin real-time-maude.maude 

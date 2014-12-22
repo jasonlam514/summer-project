@@ -38,6 +38,8 @@ endv)
   op evalrung : Rung MapNB MapNB -> Bool .
   op getcoil : Rung -> Nat .  
   op myinter : -> Oid .
+  op evalll2 :  List{Rungs} MapNB MapNB -> MapNB .
+
 
   var rlist : List{Rungs} .
   var O : Oid .
@@ -47,10 +49,15 @@ endv)
   vars N1 N2 : Nat .
 
 *** We compute the first rung from attribute ladderlogic, this rewrite rule will be applied until all rungs have been computed, the number of rungs will decrease by 1 and the output will increase by 1 in each time step.  
-  crl [eval] :  {< O : Inter | ladderlogic : rlist, inputs : M1, outputs : M2 >} => {< O : Inter | ladderlogic : tail(rlist),  inputs : M1, outputs : evalll(head(rlist),M1,M2) >} in time 1 if size(rlist) > 0 .
+***  crl [eval] :  {< O : Inter | ladderlogic : rlist, inputs : M1, outputs : M2 >} => {< O : Inter | ladderlogic : tail(rlist),  inputs : M1, outputs : evalll(head(rlist),M1,M2) >} in time 1 if size(rlist) > 0 .
 
 ***  crl [eval2] :  {< O : Inter | ladderlogic : rlist, inputs : M1, outputs : M2 >} => {< O : Inter | ladderlogic : rlist,  inputs : M1, outputs : M2 >} in time 1 if size(rlist) == 0 .
   
+  rl [eval] :  {< O : Inter | ladderlogic : rlist, inputs : M1, outputs : M2 >} => {< O : Inter | ladderlogic : rlist,  inputs : M1, outputs : evalll2(rlist,M1,empty) >} in time 1 .
+
+    crl [evalll2] : evalll2(rlist,M1,M2) => M2 if size(rlist) == 0 . 
+    crl [evalll3] : evalll2(rlist,M1,M2) => evalll2(tail(rlist), M1, evalll(head(rlist),M1,M2)) if size(rlist) > 0 . 
+
   *** To evaluate each rung, we have to obtain the coil number to produce the output.
   rl [compcoil] : evalll(R,M1,M2) => insert(getcoil(R) ,evalrung(R,M1,M2) , M2) .
 
@@ -101,7 +108,7 @@ endtom)
 ******** ───┤4├──┤              ├───┤8├───(10)    4:true                  8:true  result: true
 ********         └──────┤7├─────┘                           7:false      
 
-(trew {conf1} in time <= 3 .)
+(trew {conf1} in time <= 1 .)
 
 (trew {conf2} in time <= 2 .)
 

@@ -1,3 +1,9 @@
+*** Input to be the list of bools(pressed) and M2(cross, req)
+*** op genInput(list(bools), M2) => genInput(tail(bools), M2) :
+*** pressed |-> head(bools), M2 output M3 
+*** List of bool output
+
+
 (tomod RUNG is protecting NAT-TIME-DOMAIN .
   
   sorts Rung Coil Contact .
@@ -32,6 +38,7 @@ endv)
   protecting RUNG .
   protecting PELICANCROSSING .
   protecting LIST{Rungs} .
+  protecting LIST{Bool} .
 
   class Inter | ladderlogic : List{Rungs}, inputs : MapNB, outputs : MapNB .
   
@@ -40,17 +47,27 @@ endv)
   op getcoil : Rung -> signal .  
   op myinter : -> Oid .
   op evalll2 :  List{Rungs} MapNB MapNB -> MapNB .
-
+*** remove first map
+  op genInput : List{Bool} MapNB -> MapNB .
+  op unprime : MapNB -> MapNB .
+  op prime : signal -> signal .
+  op gen : MapNB -> MapNB .
 
   var rlist : List{Rungs} .
   var O : Oid .
   vars R R1 R2 : Rung .
-  vars M1 M2 : MapNB .
+  vars M1 M2 M3 : MapNB .
   vars E1 E2 : EntryNB .
   vars N1 N2 : signal .
+  var LB : List{Bool} .
+  *** eq genInput(LB, M3) = (pressed |-> head(LB), M3) .
 
-  rl [eval] :  {< O : Inter | ladderlogic : rlist, inputs : M1, outputs : M2 >} => {< O : Inter | ladderlogic : rlist,  inputs : M1, outputs : evalll2(rlist,M1,empty) >} in time 1 .
+  crl [eval] :  {< O : Inter | ladderlogic : rlist, inputs : genInput(LB, M3), outputs : M2 >} => {< O : Inter | ladderlogic : rlist,  inputs : genInput(tail(LB), M3), outputs : gen(evalll2(rlist,genInput(LB, M3),empty)) >} in time 1 if size(LB) > 0 .
 
+  *** crl [eval] :  {< O : Inter | ladderlogic : rlist, inputs : genInput(LB, M3), outputs : M2 >} => {< O : Inter | ladderlogic : rlist,  inputs : empty, outputs : M2 >} if size(LB) == 0 .
+  rl [g] : gen(evalll2(rlist,genInput(LB, M3),M2)) => evalll2(rlist,(pressed |-> head(LB), M3),M2) .
+
+  rl [gen] : genInput(LB, M2) => (pressed |-> head(LB), M2) .
   crl [evalll2] : evalll2(rlist,M1,M2) => M2 if size(rlist) == 0 . 
   crl [evalll3] : evalll2(rlist,M1,M2) => evalll2(tail(rlist), M1, evalll(head(rlist),M1,M2)) if size(rlist) > 0 . 
   
@@ -65,7 +82,8 @@ endv)
   rl [getcoil] : getcoil(lland(R1,R2)) => getcoil(R2) .
   rl [getcoil2] : getcoil(coil(N1)) => N1 . 
   
-  
+  ***rl [prime] : prime(N1) => prime(N1) .
+  rl [unprime] : unprime(M3) => M3 .
 endtom)
 
 (tomod example is protecting NAT-TIME-DOMAIN .
@@ -90,10 +108,10 @@ eq ladder8 = lland(cont(crossing'),coil(plbg)) .
 eq ladder9 = lland(necont(crossing'),coil(plar)) .
 eq ladder10 = lland(necont(crossing'),coil(plbr)) .
 
-eq map1(pressed2,req2,crossing2) = pressed |-> pressed2 , crossing' |-> evalrung(ladder1, (req |-> req2,crossing |-> crossing2),empty) , req' |-> evalrung(ladder2, (req |-> req2,pressed |-> pressed2),empty) , req |-> req2 , crossing |-> crossing2 .
-eq conf1(pressed2,req2,crossing2) = < myinter : Inter | ladderlogic : ladder1 ladder2 ladder3 ladder4 ladder5 ladder6  
-ladder7 ladder8 ladder9 ladder10, inputs : map1(pressed2,req2,crossing2) , outputs : empty > .
-
 endtom)
+ (trew {< myinter : Inter | ladderlogic : lland(cont(pressed),lland(necont(req),coil(req))) lland(cont(pressed),lland(cont(req),coil(crossing))), inputs : genInput(false true true true, (req |-> false, crossing |-> false)), outputs : empty >} in time <= 12 .)
 
-(trew {conf1(true,false,true)} in time <= 1 .)
+***(rew evalll2(lland(cont(pressed),lland(necont(req),coil(req'))),genInput(true false, (req |-> false)), empty ) .)
+
+*** (rew genInput(true false true , (crossing |-> false, req |-> true)) .)
+*** (rew prime(req) .)

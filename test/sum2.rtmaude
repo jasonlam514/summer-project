@@ -36,27 +36,35 @@ endv)
   class Inter | ladderlogic : List{Rungs}, inputs : MapNB, outputs : MapNB .
   
   op evalll : Rung MapNB MapNB -> MapNB .
+  op evalll2 :  List{Rungs} MapNB MapNB -> MapNB .
   op evalrung : Rung MapNB MapNB -> Bool .
   op getcoil : Rung -> signal .  
   op myinter : -> Oid .
-  op evalll2 :  List{Rungs} MapNB MapNB -> MapNB .
-
-
+  op generateinputs : MapNB -> MapNB .
+  op flip? : EntryNB -> EntryNB .
+  
   var rlist : List{Rungs} .
   var O : Oid .
   vars R R1 R2 : Rung .
   vars M1 M2 : MapNB .
   vars E1 E2 : EntryNB .
   vars N1 N2 : signal .
-
-  rl [eval] :  {< O : Inter | ladderlogic : rlist, inputs : M1, outputs : M2 >} => {< O : Inter | ladderlogic : rlist,  inputs : M1, outputs : evalll2(rlist,M1,empty) >} in time 1 .
+  vars K : signal .
+  vars B : Bool .
+  
+  rl [generateinputs] :  generateinputs( ( K |-> B , M1 )) => (flip?( K |-> B ) , generateinputs(M1)) .
+  rl [generateinputs] :  generateinputs(empty) => empty .
+  rl [flip] : flip?(K |-> B) => (K |-> B) .
+  rl [flip2] : flip?(K |-> B) => (K |-> (not B)) .
+  
+  rl [evalll] :  {< O : Inter | ladderlogic : rlist, inputs : M1 >} => {< O : Inter | ladderlogic : rlist, inputs : generateinputs(M1), outputs : evalll2(rlist,M1,empty) >} in time 1 .
 
   crl [evalll2] : evalll2(rlist,M1,M2) => M2 if size(rlist) == 0 . 
-  crl [evalll3] : evalll2(rlist,M1,M2) => evalll2(tail(rlist), M1, evalll(head(rlist),M1,M2)) if size(rlist) > 0 . 
+  rl [evalll2] : evalll2(rlist,M1,M2) => evalll2(tail(rlist), M1, evalll(head(rlist),M1,M2)) [owise] . 
   
   rl [compcoil] : evalll(R,M1,M2) => insert(getcoil(R) ,evalrung(R,M1,M2) , M2) .
-  
-  rl [comprung] : evalrung(coil(N1),M1,M2) => true .
+
+  rl [comprung] : evalrung(coil(N1),M1,M2) => true  .
   rl [comprung2] : evalrung(lland(R,R1),M1,M2) => evalrung(R,M1,M2) and evalrung(R1,M1,M2) .
   rl [comprung3] : evalrung(llor(R,R1),M1,M2) => evalrung(R,M1,M2) or evalrung(R1,M1,M2) .
   rl [comprung4] : evalrung(cont(N1),M1,M2) => M1[N1] .
@@ -90,10 +98,10 @@ eq ladder8 = lland(cont(crossing'),coil(plbg)) .
 eq ladder9 = lland(necont(crossing'),coil(plar)) .
 eq ladder10 = lland(necont(crossing'),coil(plbr)) .
 
-eq map1(pressed2,req2,crossing2) = pressed |-> pressed2 , crossing' |-> evalrung(ladder1, (req |-> req2,crossing |-> crossing2),empty) , req' |-> evalrung(ladder2, (req |-> req2,pressed |-> pressed2),empty) , req |-> req2 , crossing |-> crossing2 .
+eq map1(pressed2,req2,crossing2) = req |-> req2 , crossing |-> crossing2 , pressed |-> pressed2 , crossing' |-> crossing'(req2,crossing2) , req' |-> req'(pressed2,req2) .
 eq conf1(pressed2,req2,crossing2) = < myinter : Inter | ladderlogic : ladder1 ladder2 ladder3 ladder4 ladder5 ladder6  
 ladder7 ladder8 ladder9 ladder10, inputs : map1(pressed2,req2,crossing2) , outputs : empty > .
 
 endtom)
 
-(trew {conf1(true,false,true)} in time <= 1 .)
+(trew {conf1(true,false,true)} in time <= 2 .)

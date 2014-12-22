@@ -1,0 +1,31 @@
+
+(tomod example is protecting NAT-TIME-DOMAIN .
+protecting LLINTERLOCKING .
+ops ladder1 ladder2 ladder3 ladder4 ladder5 : -> Rung .
+ops map1 map2 : -> MapNB .
+ops conf1 conf2 : -> Configuration .
+eq ladder1 = lland(cont(1),lland(necont(2),coil(8))) .
+eq map1 = 1 |-> [true, false], 2 |-> [false, false] .
+eq conf1 = < myinter : Inter | ladderlogic : ladder1, inputs : map1 , outputs : empty > .
+endtom)
+
+(tomod example is protecting NAT-TIME-DOMAIN .
+protecting LLINTERLOCKING .
+ops ladder1 ladder2 ladder3 ladder4 ladder5 : -> Rung .
+ops map1 map2 : -> MapNB .
+ops conf1 conf2 : -> Configuration .
+eq ladder1 = lland(cont(1),lland(necont(2),coil(8))) .
+eq ladder2 = lland(cont(3),lland(cont(4),(lland(cont(5),coil(9))))) .
+eq ladder3 = lland(cont(6),lland(cont(7),coil(10))) .
+eq map1 = 1 |-> true, 2 |-> false , 3 |-> true, 4 |-> false, 5 |-> true, 6 |-> false, 7 |-> true, 1 |-> false, 2 |-> false, 1 |-> true, 2 |-> false .
+eq conf1 = < myinter : Inter | ladderlogic : ladder1 ladder2 ladder3 , inputs : map1 , outputs : empty > .
+
+eq ladder4 = lland(llor(cont(1),cont(2)),lland(cont(3),coil(9))) .
+eq ladder5 = lland(lland(cont(4),llor(lland(cont(5),necont(6)),cont(7))),lland(cont(8),coil(10))) .
+eq map2 = 1 |-> true, 2 |-> false , 3 |-> false, 4 |-> true, 5 |-> true, 6 |-> false, 7 |-> false, 8 |-> true .
+eq conf2 = < myinter : Inter | ladderlogic : ladder4 ladder5 , inputs : map2 , outputs : empty > .
+endtom)
+
+(trew {conf1} in time <= 5 .)
+
+(trew {conf2} in time <= 2 .)

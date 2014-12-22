@@ -1,0 +1,21 @@
+(view Map from TRIV to MAP{Nat,Bool} is
+    sort Elt to Map{Nat,Bool} .
+endv)
+
+(tomod LLINTERLOCKING is 
+  protecting NAT-TIME-DOMAIN .  
+ *** protecting MAP{Nat,Bool}  * (sort Map{Nat,Bool} to MapNB,
+ ***                              sort Entry{Nat,Bool} to EntryNB) .
+  protecting LIST{Map} .
+  
+  class Inter | inputs : List{Map} .
+  var O : Oid .
+  op myinter : -> Oid .
+  var ML : List{Map} .
+  op empty : List{Map} -> List{Map} .
+  
+  rl [evalll] :  {< O : Inter | inputs : ML >} => {< O : Inter | inputs : empty(ML) >} in time 1 .
+  rl [empty] : empty(ML) => ML .
+
+endtom)
+ (trew {< myinter : Inter | inputs : 1 |-> false >} in time <= 5 .)

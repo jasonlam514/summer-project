@@ -1,0 +1,81 @@
+(tomod RUNG is 
+  protecting NAT-TIME-DOMAIN .
+  sorts Rung Coil Contact .
+  subsorts Coil Contact < Rung .
+
+  ops lland llor : Rung Rung -> Rung .
+  op coil : Nat -> Coil [ctor] .
+  ops cont necont : Nat -> Contact [ctor] .
+
+
+endtom)
+
+(view Rungs from TRIV to RUNG is
+    sort Elt to Rung .
+endv)
+
+(tomod LLINTERLOCKING is 
+  protecting NAT-TIME-DOMAIN .  
+ *** protecting MAP{Nat,Bool}  * (sort Map{Nat,Bool} to MapNB,
+ ***                              sort Entry{Nat,Bool} to EntryNB) .
+  protecting LIST{MAP{Nat,Bool}} * (sort List{Map{Nat,Bool}} to List{MapNB},
+                                 sort List{Entry{Nat,Bool}} to List{MapNB}) .
+  protecting RUNG .
+  protecting LIST{Rungs} .
+
+*** This class Inter includes attributes ladderlogic, inputs in the format of ([contact id] |-> a list of Boolean) and outputs which can be left as empty.
+  class Inter | ladderlogic : List{Rungs}, inputs : MapNB, outputs : MapNB .
+  
+  op evalll : Rung MapNB MapNB -> MapNB .
+  op evalll2 :  List{Rungs} MapNB MapNB -> MapNB .
+  op evalrung : Rung MapNB MapNB -> Bool .
+  op getcoil : Rung -> Nat .  
+  op myinter : -> Oid .
+
+  var rlist : List{Rungs} .
+  var O : Oid .
+  vars R R1 R2 : Rung .
+  vars M1 M2 : MapNB .
+  vars E1 E2 : EntryNB .
+  vars N1 N2 : Nat .
+  *** var ML : List{MAP{Nat,Bool}} .
+  
+  rl [evalll] :  {< O : Inter | ladderlogic : rlist, inputs : M1 >} => {< O : Inter | ladderlogic : rlist, inputs : M1, outputs : evalll2(rlist,M1,empty) >} in time 1 .
+
+  crl [evalll2] : evalll2(rlist,M1,M2) => M2 if size(rlist) == 0 . 
+  rl [evalll2] : evalll2(rlist,M1,M2) => evalll2(tail(rlist), M1, evalll(head(rlist),M1,M2)) [owise] . 
+  
+  rl [compcoil] : evalll(R,M1,M2) => insert(getcoil(R) ,evalrung(R,M1,M2) , M2) .
+
+  rl [comprung] : evalrung(coil(N1),M1,M2) => true  .
+  rl [comprung2] : evalrung(lland(R,R1),M1,M2) => evalrung(R,M1,M2) and evalrung(R1,M1,M2) .
+  rl [comprung3] : evalrung(llor(R,R1),M1,M2) => evalrung(R,M1,M2) or evalrung(R1,M1,M2) .
+  rl [comprung4] : evalrung(cont(N1),M1,M2) => M1[N1] .
+  rl [comprung5] : evalrung(necont(N1),M1,M2) => not M1[N1] .
+
+  rl [getcoil] : getcoil(lland(R1,R2)) => getcoil(R2) .
+  rl [getcoil2] : getcoil(coil(N1)) => N1 . 
+  
+  
+endtom)
+
+(tomod example is protecting NAT-TIME-DOMAIN .
+protecting LLINTERLOCKING .
+ops ladder1 ladder2 ladder3 ladder4 ladder5 : -> Rung .
+ops map1 map2 : -> MapNB .
+ops conf1 conf2 : -> Configuration .
+eq ladder1 = lland(cont(1),lland(necont(2),coil(8))) .
+eq ladder2 = lland(cont(3),lland(cont(4),(lland(cont(5),coil(9))))) .
+eq ladder3 = lland(cont(6),lland(cont(7),coil(10))) .
+eq map1 = 1 |-> true, 2 |-> false , 3 |-> true, 4 |-> false, 5 |-> true, 6 |-> false, 7 |-> true, 1 |-> false, 2 |-> false, 1 |-> true, 2 |-> false .
+eq conf1 = < myinter : Inter | ladderlogic : ladder1 ladder2 ladder3 , inputs : map1 , outputs : empty > .
+
+eq ladder4 = lland(llor(cont(1),cont(2)),lland(cont(3),coil(9))) .
+eq ladder5 = lland(lland(cont(4),llor(lland(cont(5),necont(6)),cont(7))),lland(cont(8),coil(10))) .
+eq map2 = 1 |-> true, 2 |-> false , 3 |-> false, 4 |-> true, 5 |-> true, 6 |-> false, 7 |-> false, 8 |-> true .
+eq conf2 = < myinter : Inter | ladderlogic : ladder4 ladder5 , inputs : map2 , outputs : empty > .
+endtom)
+
+(trew {conf1} in time <= 5 .)
+
+(trew {conf2} in time <= 2 .)
